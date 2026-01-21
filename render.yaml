@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: mcp-css-first
+    runtime: docker
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production

@@ -1,0 +1,20 @@
+# Cloudflare Workers configuration
+# This file redirects to the workers/ subdirectory configuration
+
+name = "mcp-css-first"
+main = "workers/src/index.ts"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Durable Objects for stateful MCP sessions
+[durable_objects]
+bindings = [
+  { name = "MCP_OBJECT", class_name = "CSSFirstMCP" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["CSSFirstMCP"]
+
+[observability]
+enabled = true

@@ -1,0 +1,75 @@
+{
+  "name": "mcp-css-first",
+  "description": "Advanced MCP server for intelligent, context-aware CSS suggestions with logical units, container queries, and automated feature discovery",
+  "license": "MIT",
+  "version": "1.3.2",
+  "bugs": {
+    "url": "https://github.com/luko248/css-first/issues"
+  },
+  "homepage": "https://github.com/luko248/css-first#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luko248/css-first.git"
+  },
+  "keywords": [
+    "css",
+    "modelcontextprotocol",
+    "mcp",
+    "mdn",
+    "web-development",
+    "css-suggestions",
+    "container-queries",
+    "logical-units",
+    "internationalization",
+    "responsive-design",
+    "css-automation",
+    "context7",
+    "semantic-analysis",
+    "writing-mode",
+    "rtl-support",
+    "dynamic-viewport",
+    "modern-css",
+    "ai-css-assistant"
+  ],
+  "bin": {
+    "css-first": "dist/cli.js"
+  },
+  "files": [
+    "dist/cli.js",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "dist/cli.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "ncc build src/index.ts --minify --out dist/ && echo '#!/usr/bin/env node' | cat - dist/index.js > dist/cli.js && chmod +x dist/cli.js",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/cli.js",
+    "update-features": "tsx src/scripts/updateFeatures.ts",
+    "discover-features": "tsx src/services/css/featureDiscovery.ts",
+    "validate-support-fallback": "tsx src/scripts/validateSupportFallback.ts",
+    "prepublishOnly": "npm run typecheck && npm run build",
+    "version": "npm run build && git add dist/",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1",
+    "zod": "4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.9",
+    "@vercel/ncc": "^0.38.4",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0"
+  }
+}

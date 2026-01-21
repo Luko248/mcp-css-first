@@ -1,0 +1,23 @@
+{
+  "name": "mcp-css-first-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Workers remote MCP server for CSS-only development",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.0",
+    "agents": "^0.0.74",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250121.0",
+    "typescript": "^5.7.3",
+    "wrangler": "^4.59.3"
+  }
+}
