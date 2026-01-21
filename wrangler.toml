@@ -14,7 +14,7 @@ bindings = [
 
 [[migrations]]
 tag = "v1"
-new_classes = ["CSSFirstMCP"]
+new_sqlite_classes = ["CSSFirstMCP"]
 
 [observability]
 enabled = true
