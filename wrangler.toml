@@ -6,6 +6,12 @@ main = "workers/src/index.ts"
 compatibility_date = "2025-01-15"
 compatibility_flags = ["nodejs_compat"]
 
+# Enable workers.dev subdomain
+workers_dev = true
+
+# Disable preview URLs (not needed for MCP server)
+preview_urls = false
+
 # Durable Objects for stateful MCP sessions
 [durable_objects]
 bindings = [
