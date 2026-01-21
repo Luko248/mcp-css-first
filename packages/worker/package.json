@@ -1,5 +1,5 @@
 {
-  "name": "mcp-css-first-worker",
+  "name": "@css-first/worker",
   "version": "1.0.0",
   "private": true,
   "description": "Cloudflare Workers remote MCP server for CSS-only development",
@@ -11,6 +11,7 @@
     "tail": "wrangler tail"
   },
   "dependencies": {
+    "@css-first/core": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.11.0",
     "agents": "^0.0.74",
     "zod": "^3.24.2"

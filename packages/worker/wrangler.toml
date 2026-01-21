@@ -1,8 +1,7 @@
-# Cloudflare Workers configuration
-# Points to packages/worker for monorepo deployment
+# Cloudflare Workers configuration for MCP CSS First
 
 name = "mcp-css-first"
-main = "packages/worker/src/index.ts"
+main = "src/index.ts"
 compatibility_date = "2025-01-15"
 compatibility_flags = ["nodejs_compat"]
 

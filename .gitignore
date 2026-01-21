@@ -1,5 +1,21 @@
+# Build outputs
 dist
-my_resources
+packages/*/dist
+
+# Dependencies
 node_modules
-src/**/*.js
+
+# Environment
 .env
+.env.local
+.dev.vars
+
+# Cloudflare
+.wrangler
+
+# Generated JS from TS
+src/**/*.js
+
+# Misc
+my_resources
+.DS_Store

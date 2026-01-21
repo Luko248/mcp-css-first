@@ -1,9 +1,6 @@
 /**
  * MCP CSS First - Cloudflare Workers Remote MCP Server
  *
- * This is the Cloudflare Workers version of the MCP CSS First server.
- * It uses McpAgent class from the Cloudflare Agents SDK for stateful MCP sessions.
- *
  * URL: https://mcp-css-first.<account>.workers.dev/sse
  */
 
@@ -11,7 +8,7 @@ import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-// Import CSS services from parent src directory
+// Import from @css-first/core
 import {
   searchMDNForCSSProperties,
   fetchBrowserSupportFromMDN,
@@ -20,24 +17,17 @@ import {
   getAlternativeCSSProperties,
   getImplementationGuidance,
   analyzeTaskIntent,
-} from "../../src/services/css/index.js";
-
-import {
   deriveSupportLevel,
   getBaselineFromSupportLevel,
   getBaselineLabel,
-} from "../../src/services/css/suggestions.js";
+} from "@css-first/core";
 
-// Environment bindings type
 interface Env {
   MCP_OBJECT: DurableObjectNamespace;
 }
 
 /**
  * CSSFirstMCP - Cloudflare Durable Object for MCP sessions
- *
- * Each MCP client session gets its own Durable Object instance
- * with persistent state and WebSocket hibernation support.
  */
 export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
   server = new McpServer({
@@ -362,13 +352,12 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
 }
 
 /**
- * Worker fetch handler - routes requests to MCP server
+ * Worker fetch handler
  */
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    // Health check endpoint
     if (url.pathname === "/health") {
       return new Response(
         JSON.stringify({
@@ -384,7 +373,6 @@ export default {
       );
     }
 
-    // Root endpoint with service info
     if (url.pathname === "/" && request.method === "GET") {
       return new Response(
         JSON.stringify({
@@ -406,13 +394,9 @@ export default {
       );
     }
 
-    // Route MCP requests to Durable Object
     if (url.pathname === "/sse" || url.pathname === "/mcp") {
-      // Get or create a Durable Object for this session
       const id = env.MCP_OBJECT.idFromName("default");
       const stub = env.MCP_OBJECT.get(id);
-
-      // Forward the request to the Durable Object
       return stub.fetch(request);
     }
 
