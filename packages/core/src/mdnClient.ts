@@ -4,6 +4,12 @@
 
 import { BrowserSupportInfo, CSSPropertyDetails } from "./types.js";
 
+export type MdnBaselineStatus =
+  | "widely-available"
+  | "newly-available"
+  | "limited-availability"
+  | "experimental";
+
 /** Base URL for MDN CSS documentation */
 const MDN_CSS_BASE_URL = "https://developer.mozilla.org/en-US/docs/Web/CSS";
 const MDN_URL_OVERRIDES: Record<string, string> = {
@@ -71,6 +77,20 @@ export async function fetchMDNData(cssProperty: string): Promise<any> {
 }
 
 /**
+ * Fetch Baseline status for a CSS property from MDN content
+ */
+export async function fetchBaselineStatusFromMDN(
+  cssProperty: string
+): Promise<MdnBaselineStatus | undefined> {
+  try {
+    const mdnData = await fetchMDNData(cssProperty);
+    return mdnData.baseline_status;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * Parse MDN response into our expected format
  */
 function parseMDNResponse(content: string, cssProperty: string): any {
@@ -79,6 +99,7 @@ function parseMDNResponse(content: string, cssProperty: string): any {
     description: extractDescription(content),
     syntax: extractSyntax(content, cssProperty),
     browserSupport: extractBrowserSupport(content),
+    baseline_status: extractBaselineStatus(content),
     examples: extractExamples(content),
     relatedProperties: extractRelatedProperties(content),
   };
@@ -170,6 +191,28 @@ function extractBrowserSupport(content: string): any {
   }
 
   return support;
+}
+
+/**
+ * Extract Baseline status from MDN content
+ */
+function extractBaselineStatus(content: string): MdnBaselineStatus | undefined {
+  const lower = content.toLowerCase();
+
+  if (lower.includes("baseline") && lower.includes("widely available")) {
+    return "widely-available";
+  }
+  if (lower.includes("baseline") && lower.includes("newly available")) {
+    return "newly-available";
+  }
+  if (lower.includes("baseline") && lower.includes("limited availability")) {
+    return "limited-availability";
+  }
+  if (lower.includes("baseline") && lower.includes("experimental")) {
+    return "experimental";
+  }
+
+  return undefined;
 }
 
 /**

@@ -22,6 +22,7 @@ import {
   searchMDNForCSSProperties,
   fetchBrowserSupportFromMDN,
   fetchCSSPropertyDetailsFromMDN,
+  fetchBaselineStatusFromMDN,
   generateBrowserSupportRecommendation,
   getAlternativeCSSProperties,
   getImplementationGuidance,
@@ -351,29 +352,33 @@ server.registerTool(
     fallback_needed?: boolean;
   }) => {
     try {
-      const { css_property, user_consent, fallback_needed = false } = args;
-      const browserSupport = await fetchBrowserSupportFromMDN(css_property);
-      const supportLevel = deriveSupportLevel(browserSupport.overall_support);
+        const { css_property, user_consent, fallback_needed = false } = args;
+        const browserSupport = await fetchBrowserSupportFromMDN(css_property);
+        const supportLevel = deriveSupportLevel(browserSupport.overall_support);
+        const baselineStatus = await fetchBaselineStatusFromMDN(css_property);
+        const baselineLabel = getBaselineLabel(
+          baselineStatus ?? getBaselineFromSupportLevel(supportLevel)
+        );
 
-      const result = !user_consent
-        ? {
-            message: `Declined ${css_property}.`,
-            alternative_suggestions: await getAlternativeCSSProperties(
+        const result = !user_consent
+          ? {
+              message: `Declined ${css_property}.`,
+              alternative_suggestions: await getAlternativeCSSProperties(
               css_property
             ),
-          }
-        : {
-            message: `Approved ${css_property}.`,
-            implementation_guidance: await getImplementationGuidance(
-              css_property,
-              fallback_needed
-            ),
-            support_level: supportLevel,
-            baseline: getBaselineLabel(getBaselineFromSupportLevel(supportLevel)),
-            browser_support: browserSupport,
-            css_property: css_property,
-            approved: true,
-          };
+            }
+          : {
+              message: `Approved ${css_property}.`,
+              implementation_guidance: await getImplementationGuidance(
+                css_property,
+                fallback_needed
+              ),
+              support_level: supportLevel,
+              baseline: baselineLabel,
+              browser_support: browserSupport,
+              css_property: css_property,
+              approved: true,
+            };
 
       return {
         content: [

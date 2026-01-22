@@ -13,6 +13,7 @@ import {
   searchMDNForCSSProperties,
   fetchBrowserSupportFromMDN,
   fetchCSSPropertyDetailsFromMDN,
+  fetchBaselineStatusFromMDN,
   generateBrowserSupportRecommendation,
   getAlternativeCSSProperties,
   getImplementationGuidance,
@@ -324,6 +325,10 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
           const { css_property, user_consent, fallback_needed = false } = args;
           const browserSupport = await fetchBrowserSupportFromMDN(css_property);
           const supportLevel = deriveSupportLevel(browserSupport.overall_support);
+          const baselineStatus = await fetchBaselineStatusFromMDN(css_property);
+          const baselineLabel = getBaselineLabel(
+            baselineStatus ?? getBaselineFromSupportLevel(supportLevel)
+          );
 
           const result = !user_consent
             ? {
@@ -339,7 +344,7 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
                   fallback_needed
                 ),
                 support_level: supportLevel,
-                baseline: getBaselineLabel(getBaselineFromSupportLevel(supportLevel)),
+                baseline: baselineLabel,
                 browser_support: browserSupport,
                 css_property: css_property,
                 approved: true,

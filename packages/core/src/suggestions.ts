@@ -4,7 +4,11 @@
 
 import { CSSPropertySuggestion, CSSFeatureCategory } from './types.js';
 import { searchFeatures, getCarouselFeatures } from './features.js';
-import { fetchBrowserSupportFromMDN, fetchMDNData } from './mdnClient.js';
+import {
+  fetchBaselineStatusFromMDN,
+  fetchBrowserSupportFromMDN,
+  fetchMDNData
+} from './mdnClient.js';
 import { analyzeProjectContext, getFrameworkSpecificRecommendations, getCSSFrameworkRecommendations } from './contextAnalyzer.js';
 import { rankByLogicalPreference, getWritingModeRecommendations } from './logicalUnitsPreference.js';
 
@@ -145,11 +149,20 @@ export function getBaselineLabel(baseline: BaselinePreference): string {
 }
 
 function shouldIncludeBaseline(
-  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental',
+  resolvedBaseline: BaselinePreference | undefined,
   baseline?: BaselinePreference
 ): boolean {
   if (!baseline) return true;
-  return getBaselineFromSupportLevel(supportLevel) === baseline;
+  if (!resolvedBaseline) return true;
+  return resolvedBaseline === baseline;
+}
+
+async function resolveBaselineForProperty(
+  cssProperty: string,
+  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental'
+): Promise<BaselinePreference> {
+  const mdnBaseline = await fetchBaselineStatusFromMDN(cssProperty);
+  return mdnBaseline ?? getBaselineFromSupportLevel(supportLevel);
 }
 
 /**
@@ -422,12 +435,15 @@ async function searchWithIntelligentRanking(
       const supportLevel = browserSupport.is_default
         ? feature.support_level
         : deriveSupportLevel(browserSupport.overall_support);
+      const resolvedBaseline = await resolveBaselineForProperty(
+        feature.properties[0],
+        supportLevel
+      );
       
       if (
         shouldIncludeBasedOnApproach(supportLevel, approach) &&
-        shouldIncludeBaseline(supportLevel, baselinePreference)
+        shouldIncludeBaseline(resolvedBaseline, baselinePreference)
       ) {
-        const baseline = getBaselineFromSupportLevel(supportLevel);
         const suggestion: CSSPropertySuggestion = {
           property: feature.properties[0],
           description: feature.description,
@@ -440,7 +456,7 @@ async function searchWithIntelligentRanking(
           use_cases: getFeatureUseCases(feature.name),
           mdn_url: feature.mdn_url,
           support_level: supportLevel,
-          baseline: getBaselineLabel(baseline)
+          baseline: getBaselineLabel(resolvedBaseline)
         };
         
         // Add ranking score based on relevance
@@ -464,8 +480,19 @@ async function searchWithIntelligentRanking(
       const supportLevel = browserSupport.is_default
         ? feature.support_level
         : deriveSupportLevel(browserSupport.overall_support);
-      if (shouldIncludeBaseline(supportLevel, baselinePreference)) {
-        suggestions.push(await createSuggestionFromFeature(feature, browserSupport, supportLevel));
+      const resolvedBaseline = await resolveBaselineForProperty(
+        feature.properties[0],
+        supportLevel
+      );
+      if (shouldIncludeBaseline(resolvedBaseline, baselinePreference)) {
+        suggestions.push(
+          await createSuggestionFromFeature(
+            feature,
+            browserSupport,
+            supportLevel,
+            resolvedBaseline
+          )
+        );
       }
     }
   }
@@ -531,13 +558,16 @@ async function searchLegacyKeywords(
       const supportLevel = browserSupport.is_default
         ? feature.support_level
         : deriveSupportLevel(browserSupport.overall_support);
+      const resolvedBaseline = await resolveBaselineForProperty(
+        feature.properties[0],
+        supportLevel
+      );
       
       // Filter based on approach
       if (
         shouldIncludeBasedOnApproach(supportLevel, approach) &&
-        shouldIncludeBaseline(supportLevel, baselinePreference)
+        shouldIncludeBaseline(resolvedBaseline, baselinePreference)
       ) {
-        const baseline = getBaselineFromSupportLevel(supportLevel);
         suggestions.push({
           property: feature.properties[0],
           description: feature.description,
@@ -550,7 +580,7 @@ async function searchLegacyKeywords(
           use_cases: getFeatureUseCases(feature.name),
           mdn_url: feature.mdn_url,
           support_level: supportLevel,
-          baseline: getBaselineLabel(baseline)
+          baseline: getBaselineLabel(resolvedBaseline)
         });
       }
     }
@@ -567,12 +597,15 @@ async function searchLegacyKeywords(
     const supportLevel = browserSupport.is_default
       ? feature.support_level
       : deriveSupportLevel(browserSupport.overall_support);
+    const resolvedBaseline = await resolveBaselineForProperty(
+      feature.properties[0],
+      supportLevel
+    );
     
     if (
       shouldIncludeBasedOnApproach(supportLevel, approach) &&
-      shouldIncludeBaseline(supportLevel, baselinePreference)
+      shouldIncludeBaseline(resolvedBaseline, baselinePreference)
     ) {
-      const baseline = getBaselineFromSupportLevel(supportLevel);
       suggestions.push({
         property: feature.properties[0],
         description: feature.description,
@@ -585,7 +618,7 @@ async function searchLegacyKeywords(
         use_cases: getFeatureUseCases(feature.name),
         mdn_url: feature.mdn_url,
         support_level: supportLevel,
-        baseline: getBaselineLabel(baseline)
+        baseline: getBaselineLabel(resolvedBaseline)
       });
     }
   }
@@ -614,9 +647,9 @@ function dedupeSuggestions(
 async function createSuggestionFromFeature(
   feature: any,
   browserSupport: any,
-  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental'
+  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental',
+  resolvedBaseline: BaselinePreference
 ): Promise<CSSPropertySuggestion> {
-  const baseline = getBaselineFromSupportLevel(supportLevel);
   return {
     property: feature.properties[0],
     description: feature.description,
@@ -629,7 +662,7 @@ async function createSuggestionFromFeature(
     use_cases: getFeatureUseCases(feature.name),
     mdn_url: feature.mdn_url,
     support_level: supportLevel,
-    baseline: getBaselineLabel(baseline)
+    baseline: getBaselineLabel(resolvedBaseline)
   };
 }
 
