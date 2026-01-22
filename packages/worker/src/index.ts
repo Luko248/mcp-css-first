@@ -30,7 +30,8 @@ interface Env {
  * CSSFirstMCP - Cloudflare Durable Object for MCP sessions
  */
 export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
-  server = new McpServer({
+  // Bun can install multiple copies of the MCP SDK; keep runtime behavior and relax TS.
+  server: any = new McpServer({
     name: "MCP CSS First",
     version: "2.0.0",
   });
@@ -84,7 +85,16 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
           .optional()
           .describe("Include semantic analysis details in response"),
       },
-      async (args) => {
+      async (args: {
+        task_description: string;
+        preferred_approach?: "modern" | "compatible" | "progressive";
+        target_browsers?: string[];
+        project_context?: string;
+        baseline?: string;
+        max_suggestions?: number;
+        response_detail?: "compact" | "full";
+        include_analysis?: boolean;
+      }) => {
         try {
           const {
             task_description,
@@ -215,7 +225,7 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
           .optional()
           .describe("Include experimental/draft features in results"),
       },
-      async (args) => {
+      async (args: { css_property: string; include_experimental?: boolean }) => {
         try {
           const { css_property, include_experimental = false } = args;
 
@@ -260,7 +270,7 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
           .optional()
           .describe("Include code examples in the response"),
       },
-      async (args) => {
+      async (args: { css_property: string; include_examples?: boolean }) => {
         try {
           const { css_property, include_examples = true } = args;
 
@@ -305,7 +315,11 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
           .optional()
           .describe("Whether fallback solutions are needed"),
       },
-      async (args) => {
+      async (args: {
+        css_property: string;
+        user_consent: boolean;
+        fallback_needed?: boolean;
+      }) => {
         try {
           const { css_property, user_consent, fallback_needed = false } = args;
           const browserSupport = await fetchBrowserSupportFromMDN(css_property);
@@ -357,6 +371,10 @@ export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+    const sseHandler = CSSFirstMCP.serve("/sse", { transport: "sse" });
+    const mcpHandler = CSSFirstMCP.serve("/mcp", {
+      transport: "streamable-http",
+    });
 
     if (url.pathname === "/health") {
       return new Response(
@@ -394,10 +412,12 @@ export default {
       );
     }
 
-    if (url.pathname === "/sse" || url.pathname === "/mcp") {
-      const id = env.MCP_OBJECT.idFromName("default");
-      const stub = env.MCP_OBJECT.get(id);
-      return stub.fetch(request);
+    if (url.pathname === "/sse" || url.pathname.startsWith("/sse/")) {
+      return sseHandler.fetch(request, env, ctx);
+    }
+
+    if (url.pathname === "/mcp" || url.pathname.startsWith("/mcp/")) {
+      return mcpHandler.fetch(request, env, ctx);
     }
 
     return new Response("Not Found", { status: 404 });

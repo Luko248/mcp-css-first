@@ -50,7 +50,7 @@
     "prepublishOnly": "npm run typecheck && npm run build"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@modelcontextprotocol/sdk": "1.25.2",
     "@css-first/core": "workspace:*",
     "express": "^5.2.1"
   },
