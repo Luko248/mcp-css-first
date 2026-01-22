@@ -73,15 +73,7 @@ args = ["-y", "@depthark/css-first"]
 
 ### Cloudflare Workers (Remote MCP)
 
-For a remote MCP server that's always available without local installation, deploy to Cloudflare Workers:
-
-```bash
-cd workers
-npm install
-npm run deploy
-```
-
-Then connect via URL:
+For a remote MCP server that's always available without local installation:
 
 ```json
 {
@@ -97,7 +89,12 @@ Then connect via URL:
 }
 ```
 
-See [workers/README.md](workers/README.md) for full deployment instructions.
+Or deploy your own instance:
+
+```bash
+pnpm install
+pnpm run deploy:worker
+```
 
 ## Usage
 
@@ -165,7 +162,7 @@ For development/testing with local builds:
   "mcpServers": {
     "@depthark/css-first": {
       "command": "node",
-      "args": ["/absolute/path/to/css-first/dist/cli.js"]
+      "args": ["/absolute/path/to/css-first/packages/cli/dist/cli.js"]
     }
   }
 }
@@ -341,63 +338,62 @@ Framework Recommendations: "Use Tailwind's responsive prefixes", "Consider React
 # Install dependencies
 pnpm install
 
-# Build for development
-pnpm run build:tsc
-
-# Watch for changes
-pnpm run dev
-
-# Build for production
+# Build all packages
 pnpm run build
 
-# Run tests
-pnpm test
+# Build specific packages
+pnpm run build:core     # @css-first/core
+pnpm run build:cli      # @depthark/css-first
+
+# Type check
+pnpm run typecheck
 
 # Lint code
 pnpm run lint
+
+# Deploy to Cloudflare Workers
+pnpm run deploy:worker
+
+# Publish CLI to npm
+pnpm run publish:cli
 ```
 
-## 📁 Project Structure
+## 📁 Project Structure (pnpm Monorepo)
 
 ```
-src/
-├── index.ts                     # Main MCP server with enhanced tools
-├── services/
-│   ├── mdnApi.ts               # Legacy API exports and backwards compatibility
-│   └── css/
+packages/
+├── core/                        # @css-first/core - shared CSS services
+│   └── src/
 │       ├── index.ts            # CSS services entry point
 │       ├── types.ts            # TypeScript interfaces and enums
 │       ├── mdnClient.ts        # MDN client and parser
 │       ├── suggestions.ts      # Semantic analysis and intelligent ranking
-│       ├── guidance.ts         # Implementation guidance and recommendations
-│       ├── contextAnalyzer.ts  # Project context detection and analysis
+│       ├── guidance.ts         # Implementation guidance
+│       ├── contextAnalyzer.ts  # Project context detection
 │       └── features/           # Modular CSS feature definitions
-│           ├── index.ts        # Feature registry and exports
 │           ├── animation/      # Animation and transition features
-│           ├── layout/         # Flexbox, Grid, positioning features
-│           │   ├── flexbox/    # Dedicated flexbox module
-│           │   └── grid/       # Dedicated grid module
-│           ├── logical/        # Logical properties and values
-│           ├── logical-spacing/# Logical spacing and sizing
-│           ├── responsive/     # Responsive design features
-│           ├── visual/         # Visual effects and styling
-│           ├── interaction/    # User interaction states
-│           ├── positioning/    # CSS positioning features
-│           └── display/        # Display and layout modes
-workers/                         # Cloudflare Workers deployment
-├── src/
-│   └── index.ts                # McpAgent class for remote MCP
-├── wrangler.jsonc              # Cloudflare Workers config
-└── README.md                   # Workers deployment guide
+│           ├── layout/         # Flexbox, Grid features
+│           ├── logical/        # Logical properties
+│           ├── responsive/     # Responsive design
+│           ├── visual/         # Visual effects
+│           └── ...             # More feature modules
+├── cli/                         # @depthark/css-first - npm package
+│   └── src/
+│       └── index.ts            # MCP server (stdio/HTTP transport)
+└── worker/                      # @css-first/worker - Cloudflare Workers
+    ├── src/
+    │   └── index.ts            # McpAgent class for remote MCP (SSE)
+    └── wrangler.toml           # Worker-specific config
 ```
 
 ### **Key Architecture Benefits**
 
+- **Monorepo Structure**: Shared core, separate deployments (npm + Cloudflare)
 - **Modular Design**: Each CSS category has dedicated modules for maintainability
 - **Semantic Analysis**: Intent recognition and confidence scoring for accuracy
 - **Context Awareness**: Framework and project constraint detection
 - **Performance Optimized**: Intelligent caching and ranked results
-- **Extensible**: Easy to add new frameworks, patterns, and CSS features
+- **Dual Deployment**: Local CLI via npm, remote MCP via Cloudflare Workers
 
 ## 🎯 CSS Feature Coverage
 
