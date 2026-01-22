@@ -46,8 +46,17 @@ Add to your MCP settings:
 
 #### Claude Code CLI
 
-```bash
-claude mcp add css-first-remote --url https://mcp-css-first.chylik-lukas.workers.dev/sse --transport sse
+Edit `~/.config/claude/config.json` and add:
+
+```json
+{
+  "mcpServers": {
+    "css-first-remote": {
+      "url": "https://mcp-css-first.chylik-lukas.workers.dev/sse",
+      "transport": "sse"
+    }
+  }
+}
 ```
 
 ---

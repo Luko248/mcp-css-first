@@ -13,7 +13,7 @@
   "dependencies": {
     "@css-first/core": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.11.0",
-    "agents": "^0.0.74"
+    "agents": "^0.3.6"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250121.0",
