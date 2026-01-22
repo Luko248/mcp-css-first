@@ -5,7 +5,7 @@ startCommand:
   commandFunction:
     # Use npx to run the published package
     |-
-    (config) => ({ command: 'npx', args: ['-y', '@depthark/css-first'] })
+    (config) => ({ command: 'npx', args: ['-y', '@depthark/css-first@latest'] })
   configSchema:
     type: object
     properties: {}

@@ -1,6 +1,8 @@
-# CSS First
+# CSS First (CLI)
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with direct MDN integration.
+
+[![smithery badge](https://smithery.ai/badge/mcp-css-first)](https://smithery.ai/server/mcp-css-first) • [Glama Directory](https://glama.ai/mcp/servers/@depthark/css-first)
 
 ## Setup
 
