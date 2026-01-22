@@ -21,3 +21,6 @@ export * from './contextAnalyzer.js';
 
 // Logical units preference
 export * from './logicalUnitsPreference.js';
+
+// Re-export zod for consumers
+export { z } from 'zod';

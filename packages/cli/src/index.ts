@@ -13,12 +13,12 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { z } from "zod";
 import express from "express";
 import { randomUUID } from "crypto";
 
-// Import from @css-first/core
+// Import from @css-first/core (including zod)
 import {
+  z,
   searchMDNForCSSProperties,
   fetchBrowserSupportFromMDN,
   fetchCSSPropertyDetailsFromMDN,
