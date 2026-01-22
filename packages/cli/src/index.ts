@@ -34,7 +34,7 @@ import {
   type CSSPropertyDetails,
 } from "@css-first/core";
 
-const version = "1.3.2";
+const version = "2.0.0";
 
 /** The main MCP server instance */
 const server = new McpServer({ name: "MCP CSS First", version });

@@ -32,7 +32,7 @@ interface Env {
 export class CSSFirstMCP extends McpAgent<Env, {}, {}> {
   server = new McpServer({
     name: "MCP CSS First",
-    version: "1.3.2",
+    version: "2.0.0",
   });
 
   async init() {
@@ -363,7 +363,7 @@ export default {
         JSON.stringify({
           status: "ok",
           service: "MCP CSS First",
-          version: "1.3.2",
+          version: "2.0.0",
           runtime: "Cloudflare Workers",
         }),
         {
@@ -377,7 +377,7 @@ export default {
       return new Response(
         JSON.stringify({
           name: "MCP CSS First",
-          version: "1.3.2",
+          version: "2.0.0",
           description: "Remote MCP server for CSS-only development",
           runtime: "Cloudflare Workers with Durable Objects",
           endpoints: {

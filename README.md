@@ -6,26 +6,59 @@ An advanced MCP (Model Context Protocol) server that provides intelligent, conte
 
 ## Setup
 
-Add to your MCP configuration:
+Choose between **Remote MCP** (Server-Sent Events) or **Local MCP** (stdio) installation:
 
-### Cursor
+### 🌐 Remote MCP via SSE (Recommended)
+
+Connect to our hosted Cloudflare Worker instance - no local installation required:
+
+**URL:** `https://mcp-css-first.chylik-lukas.workers.dev/sse`
+
+#### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "css-first-remote": {
+      "url": "https://mcp-css-first.chylik-lukas.workers.dev/sse",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+#### Cursor / Windsurf / Cline
 
 Add to your MCP settings:
 
 ```json
 {
   "mcpServers": {
-    "css-first": {
-      "command": "npx",
-      "args": ["-y", "@depthark/css-first"]
+    "css-first-remote": {
+      "url": "https://mcp-css-first.chylik-lukas.workers.dev/sse",
+      "transport": "sse"
     }
   }
 }
 ```
 
-### Windsurf
+#### Claude Code CLI
 
-Configure in your MCP settings:
+```bash
+claude mcp add css-first-remote --url https://mcp-css-first.chylik-lukas.workers.dev/sse --transport sse
+```
+
+---
+
+### 💻 Local MCP via stdio
+
+Install and run locally using npm package:
+
+#### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -38,9 +71,9 @@ Configure in your MCP settings:
 }
 ```
 
-### GitHub Copilot / VS Code
+#### Cursor
 
-Add to your MCP configuration:
+Add to MCP settings (`.cursor/mcp_settings.json` or via Settings UI):
 
 ```json
 {
@@ -53,17 +86,45 @@ Add to your MCP configuration:
 }
 ```
 
-### Claude Code CLI
+#### Windsurf
 
-Add the MCP server:
+Add to MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
+    }
+  }
+}
+```
+
+#### Cline (VS Code Extension)
+
+Add to Cline MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
+    }
+  }
+}
+```
+
+#### Claude Code CLI
 
 ```bash
 claude mcp add css-first npx -y @depthark/css-first
 ```
 
-### Codex
+#### Codex
 
-Add config to your `mcp_servers.toml`:
+Add to `mcp_servers.toml`:
 
 ```toml
 [mcp_servers.css-first]
@@ -71,29 +132,40 @@ command = "npx"
 args = ["-y", "@depthark/css-first"]
 ```
 
-### Cloudflare Workers (Remote MCP)
+#### Zed Editor
 
-For a remote MCP server that's always available without local installation:
+Add to Zed settings:
 
 ```json
 {
-  "mcpServers": {
-    "css-first-remote": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://mcp-css-first.<your-subdomain>.workers.dev/sse"
-      ]
+  "context_servers": {
+    "css-first": {
+      "command": {
+        "path": "npx",
+        "args": ["-y", "@depthark/css-first"]
+      }
     }
   }
 }
 ```
 
-Or deploy your own instance:
+---
+
+### 🚀 Deploy Your Own Remote Instance
+
+Deploy your own Cloudflare Worker:
 
 ```bash
+git clone https://github.com/luko248/css-first
+cd css-first
 bun install
+bun run build:core
 bun run deploy:worker
+```
+
+Then use your custom URL:
+```
+https://mcp-css-first.<your-subdomain>.workers.dev/sse
 ```
 
 ## Usage
