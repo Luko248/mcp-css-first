@@ -92,8 +92,8 @@ For a remote MCP server that's always available without local installation:
 Or deploy your own instance:
 
 ```bash
-pnpm install
-pnpm run deploy:worker
+bun install
+bun run deploy:worker
 ```
 
 ## Usage
@@ -149,8 +149,8 @@ For contributors and advanced users who want to modify the source:
 ```bash
 git clone https://github.com/luko248/css-first
 cd css-first
-pnpm install
-pnpm run build
+bun install
+bun run build
 ```
 
 ## Development Usage
@@ -336,29 +336,29 @@ Framework Recommendations: "Use Tailwind's responsive prefixes", "Consider React
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 
 # Build all packages
-pnpm run build
+bun run build
 
 # Build specific packages
-pnpm run build:core     # @css-first/core
-pnpm run build:cli      # @depthark/css-first
+bun run build:core     # @css-first/core
+bun run build:cli      # @depthark/css-first
 
 # Type check
-pnpm run typecheck
+bun run typecheck
 
 # Lint code
-pnpm run lint
+bun run lint
 
 # Deploy to Cloudflare Workers
-pnpm run deploy:worker
+bun run deploy:worker
 
 # Publish CLI to npm
-pnpm run publish:cli
+bun run publish:cli
 ```
 
-## 📁 Project Structure (pnpm Monorepo)
+## 📁 Project Structure (Bun Monorepo)
 
 ```
 packages/

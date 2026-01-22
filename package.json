@@ -7,20 +7,17 @@
     "type": "git",
     "url": "git+https://github.com/luko248/css-first.git"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "workspaces": ["packages/*"],
   "scripts": {
-    "build": "pnpm -r build",
-    "build:core": "pnpm --filter @css-first/core build",
-    "build:cli": "pnpm --filter @depthark/css-first build",
-    "build:worker": "pnpm --filter @css-first/worker build",
-    "dev": "pnpm -r dev",
-    "typecheck": "pnpm -r typecheck",
+    "build": "bun run build:core && bun run build:cli",
+    "build:core": "cd packages/core && bun run build",
+    "build:cli": "cd packages/cli && bun run build",
+    "dev": "bun run --filter '*' dev",
+    "typecheck": "bun run --filter '*' typecheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy:worker": "pnpm --filter @css-first/worker deploy",
-    "publish:cli": "pnpm --filter @depthark/css-first publish"
+    "deploy:worker": "cd packages/worker && bun run deploy",
+    "publish:cli": "cd packages/cli && npm publish"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

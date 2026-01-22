@@ -1,6 +1,6 @@
 # Repository Guidelines
 
-## Project Structure (pnpm Monorepo)
+## Project Structure (Bun Monorepo)
 
 ```
 mcp-css-first/
@@ -11,7 +11,6 @@ mcp-css-first/
 │   │   └── src/        # MCP server entrypoint
 │   └── worker/         # @css-first/worker - Cloudflare Workers (SSE)
 │       └── src/        # McpAgent class for remote MCP
-├── pnpm-workspace.yaml # Workspace configuration
 ├── wrangler.toml       # Cloudflare Workers deployment config
 └── smithery.yaml       # Smithery registry config
 ```
@@ -19,20 +18,20 @@ mcp-css-first/
 ## Build, Test, and Development Commands
 
 ```bash
-pnpm install              # Install all dependencies
-pnpm run build            # Build all packages
-pnpm run build:core       # Build @css-first/core only
-pnpm run build:cli        # Build @depthark/css-first only
-pnpm run typecheck        # Type check all packages
-pnpm run lint             # Run ESLint
-pnpm run deploy:worker    # Deploy to Cloudflare Workers
-pnpm run publish:cli      # Publish CLI to npm
+bun install               # Install all dependencies
+bun run build             # Build all packages
+bun run build:core        # Build @css-first/core only
+bun run build:cli         # Build @depthark/css-first only
+bun run typecheck         # Type check all packages
+bun run lint              # Run ESLint
+bun run deploy:worker     # Deploy to Cloudflare Workers
+bun run publish:cli       # Publish CLI to npm
 ```
 
 ### Package-specific commands (run from package directory)
-- `packages/cli`: `pnpm run build` - bundles with `@vercel/ncc`
-- `packages/core`: `pnpm run build` - compiles TypeScript
-- `packages/worker`: `pnpm run dev` - local Cloudflare development
+- `packages/cli`: `bun run build` - bundles with `@vercel/ncc`
+- `packages/core`: `bun run build` - compiles TypeScript
+- `packages/worker`: `bun run dev` - local Cloudflare development
 
 ## Coding Style & Naming Conventions
 - TypeScript with strict mode enabled
@@ -47,8 +46,8 @@ pnpm run publish:cli      # Publish CLI to npm
 
 ## Testing Guidelines
 - No automated test runner configured
-- Rely on `pnpm run typecheck` and manual CLI testing
-- Test worker locally with `pnpm --filter @css-first/worker dev`
+- Rely on `bun run typecheck` and manual CLI testing
+- Test worker locally with `cd packages/worker && bun run dev`
 
 ## Commit & Pull Request Guidelines
 - Conventional Commits style: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`
@@ -56,6 +55,6 @@ pnpm run publish:cli      # Publish CLI to npm
 - PRs should pass: build, lint, typecheck
 
 ## Deployment
-- **npm**: `pnpm run publish:cli` from root or `pnpm publish` from packages/cli
+- **npm**: `bun run publish:cli` from root or `npm publish` from packages/cli
 - **Cloudflare Workers**: Auto-deploys on git push via wrangler.toml
-- Runtime target: Node.js 18+
+- Runtime target: Node.js 18+ / Bun
