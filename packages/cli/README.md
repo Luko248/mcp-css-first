@@ -1,4 +1,4 @@
-# CSS First (CLI)
+# CSS First
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with direct MDN integration.
 
