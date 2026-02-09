@@ -104,3 +104,86 @@
     opacity: 1;
   }
 }
+
+
+/* ==========================================================================
+   SCOPED VIEW TRANSITIONS — subtree transitions (Chrome 140+, experimental)
+   Reference: https://developer.chrome.com/blog/scoped-view-transitions-feedback
+   ========================================================================== */
+
+/*
+ * Scoped view transitions run on a DOM subtree instead of the whole document.
+ * JS: element.startViewTransition({ callback }) instead of document.startViewTransition()
+ *
+ * Requirements:
+ *   - The scoped root element MUST have contain: layout
+ *   - The ::view-transition pseudo-tree is injected onto that element
+ *
+ * Benefits:
+ *   - Content clips to parent boundaries during animation
+ *   - External elements can render above the transition
+ *   - Multiple independent transitions can run simultaneously
+ *   - Only the transitioning subtree blocks pointer events
+ */
+
+/* Scoped transition root — must have contain: layout */
+.sidebar {
+  contain: layout;
+  position: relative;
+}
+
+/* The ::view-transition pseudo-tree attaches to the scoped element,
+   not :root. Style it on the element directly. */
+.sidebar::view-transition {
+  position: absolute;
+  inset: 0;
+}
+
+.sidebar::view-transition-group(nav-item) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
+}
+
+.sidebar::view-transition-old(nav-item) {
+  animation: fade-slide-out 0.25s ease-out;
+}
+
+.sidebar::view-transition-new(nav-item) {
+  animation: fade-slide-in 0.25s ease-in;
+}
+
+/* Each item participating in the scoped transition needs a name */
+.sidebar .nav-item {
+  view-transition-name: nav-item;
+}
+
+/* --- Concurrent scoped transitions on separate subtrees --- */
+
+.main-content {
+  contain: layout;
+}
+
+.main-content::view-transition-group(article) {
+  animation-duration: 0.3s;
+}
+
+.main-content .article {
+  view-transition-name: article;
+}
+
+/* Both .sidebar and .main-content can transition independently
+   and simultaneously without blocking each other */
+
+@keyframes fade-slide-out {
+  to {
+    translate: -10px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-slide-in {
+  from {
+    translate: 10px 0;
+    opacity: 0;
+  }
+}

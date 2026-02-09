@@ -39,6 +39,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Write component styles with native CSS nesting
 - Features: `&` nesting selector, nested media/container queries, compound selectors
 
+### [grid-lanes-masonry.css](layout/grid-lanes-masonry.css)
+**CSS Grid Lanes — Masonry Layout**
+- Baseline: 🟣 Experimental (Safari TP 234+, Firefox behind flag)
+- WebKit: [Introducing CSS Grid Lanes](https://webkit.org/blog/17660/introducing-css-grid-lanes/)
+- Task: Create masonry (waterfall) layouts with pure CSS
+- Features: `display: grid-lanes`, `grid-template-columns`, lane spanning, explicit placement, horizontal brick layout, `@supports` fallback
+
 ---
 
 ## Responsive
@@ -98,7 +105,7 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Baseline: 🔵 Newly Available (90%)
 - MDN: [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
 - Task: Add smooth page transitions
-- Features: View transitions, modern translate property, named transitions
+- Features: View transitions, modern translate property, named transitions, scoped view transitions (subtree transitions, concurrent animations)
 
 ### [scroll-driven.css](animation/scroll-driven.css)
 **Scroll-Driven Animations**
@@ -106,6 +113,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - MDN: [Scroll Timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll), [View Timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/view)
 - Task: Create animation that responds to scroll
 - Features: Scroll timeline, view timeline, animation-range
+
+### [scroll-triggered.css](animation/scroll-triggered.css)
+**Scroll-Triggered Animations**
+- Baseline: 🟣 Experimental (Chrome 145+)
+- Reference: [Chrome Blog](https://developer.chrome.com/blog/scroll-triggered-animations)
+- Task: Fire time-based animations when elements cross a scroll offset
+- Features: `animation-trigger`, `timeline-trigger-name`, `timeline-trigger-source`, `trigger-scope`, decoupled triggers, staggered entries, scrollytelling
 
 ### [starting-style.css](animation/starting-style.css)
 **Entry/Exit Animations with @starting-style + interpolate-size**
@@ -186,6 +200,57 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - MDN: [corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape)
 - Task: Create modern border shapes — bevels, scoops, squircles, notches, tooltip arrows
 - Features: `corner-shape` (round, squircle, bevel, scoop, notch, superellipse), tooltip arrow with scoop, animated morphing
+
+---
+
+## Functions & Values
+
+### [css-if-function.css](functions/css-if-function.css)
+**CSS if() Function**
+- Baseline: 🟣 Experimental
+- MDN: [if()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/if)
+- Task: Apply conditional values inline without at-rules
+- Features: `if(style():)`, `if(media():)`, `if(supports():)`, nested `if()`, logical operators, use in `calc()` and shorthands
+
+### [custom-functions.css](functions/custom-functions.css)
+**CSS Custom Functions (@function) and Mixins (@mixin)**
+- Baseline: 🟣 Experimental (@function Chrome 137+, @mixin not yet implemented)
+- MDN: [@function](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@function), [Custom Functions Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Custom_functions_and_mixins)
+- Task: Create reusable CSS functions that accept arguments and return values
+- Features: `@function`, `result:` descriptor, typed parameters, composing functions, design tokens, `@mixin`/`@apply` (spec only)
+
+### [advanced-attr.css](functions/advanced-attr.css)
+**Advanced attr() Function**
+- Baseline: 🟣 Experimental (Chrome 133+)
+- MDN: [attr()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/attr)
+- Reference: [Chrome Blog](https://developer.chrome.com/blog/advanced-attr)
+- Task: Read HTML attributes as typed CSS values — colors, numbers, lengths
+- Features: `type(<color>)`, `type(<integer>)`, `type(<custom-ident>)`, dimension units, `raw-string`, `@property` + `attr()` conic progress demo, fallbacks
+
+### [contrast-color.css](functions/contrast-color.css)
+**contrast-color() Function**
+- Baseline: 🟡 Limited Availability
+- MDN: [contrast-color()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/contrast-color)
+- Task: Automatically pick black or white text for maximum contrast
+- Features: WCAG AA auto contrast, dynamic buttons, color swatches, tag clouds, `@supports` fallback
+
+---
+
+## Specificity
+
+### [cascade-layers.css](specificity/cascade-layers.css)
+**@layer — Cascade Layers**
+- Baseline: 🟢 Widely Available (95%)
+- MDN: [@layer](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@layer)
+- Task: Control specificity and cascade order without selector hacks
+- Features: Layer declaration order, nested layers, `@import` with layers, `!important` reversal, unlayered overrides
+
+### [scope-rule.css](specificity/scope-rule.css)
+**@scope — Scoped Styles**
+- Baseline: 🔵 Newly Available (87%)
+- MDN: [@scope](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope)
+- Task: Scope styles to DOM subtrees and control specificity with proximity
+- Features: Scope root/limit (donut scope), `:scope` pseudo-class, scoping proximity, low-specificity selectors, scope + nesting
 
 ---
 

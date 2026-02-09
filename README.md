@@ -7,7 +7,7 @@
 This skill gives AI agents deep knowledge of modern CSS so they provide CSS-only solutions instead of reaching for JavaScript. It includes:
 
 - **7 behavioral rules** — CSS-only enforcement, logical properties, modern features, semantic intent analysis, framework detection, browser support, progressive enhancement
-- **22 production-ready CSS demos** — layout, responsive, container queries, animation, theming, positioning, interaction, visual
+- **29 production-ready CSS demos** — layout, responsive, container queries, animation, theming, positioning, interaction, visual, specificity, functions & values
 - **Live MDN integration** — fetch current Baseline status and browser support data on demand
 
 ## Features
@@ -17,7 +17,7 @@ This skill gives AI agents deep knowledge of modern CSS so they provide CSS-only
 | Semantic Intent Recognition | Detects layout, animation, spacing, responsive, visual, and interaction intents                         |
 | Framework Detection         | Auto-detects React, Vue, Angular, Svelte, Tailwind, Bootstrap                                           |
 | Logical Properties First    | Prioritizes `inline-size`, `margin-inline`, etc. for internationalization                               |
-| Modern CSS (2021-2025)      | Container queries, view transitions, scroll-driven animations, `light-dark()`, anchor positioning       |
+| Modern CSS (2021-2026)      | Container queries, view transitions, scroll-driven/triggered animations, `light-dark()`, anchor positioning, `@layer`, `@scope`, `if()`, `@function`, advanced `attr()`, `contrast-color()`, grid lanes |
 | Browser Support Awareness   | Every suggestion includes Baseline status (Widely Available / Newly Available / Limited / Experimental) |
 | Progressive Enhancement     | Core functionality first, enhancements layered with `@supports`                                         |
 
@@ -29,6 +29,7 @@ This skill gives AI agents deep knowledge of modern CSS so they provide CSS-only
 | Aligned grids        | Subgrid                         | `css-demos/layout/subgrid.css`                    |
 | Parent selection     | `:has()`                        | `css-demos/layout/has-selector.css`               |
 | Component styles     | CSS Nesting                     | `css-demos/layout/css-nesting.css`                |
+| Masonry layout       | Grid Lanes                      | `css-demos/layout/grid-lanes-masonry.css`         |
 | Responsive layout    | Media queries (range syntax)    | `css-demos/responsive/media-queries.css`          |
 | Feature detection    | `@supports`                     | `css-demos/responsive/supports-rule.css`          |
 | Container responsive | Container size queries          | `css-demos/container/size-queries.css`            |
@@ -38,6 +39,7 @@ This skill gives AI agents deep knowledge of modern CSS so they provide CSS-only
 | Dark mode            | `light-dark()`                  | `css-demos/theming/light-dark-function.css`       |
 | Page transitions     | View Transitions                | `css-demos/animation/view-transitions.css`        |
 | Scroll effects       | Scroll-driven animations        | `css-demos/animation/scroll-driven.css`           |
+| Scroll reveals       | Scroll-triggered animations     | `css-demos/animation/scroll-triggered.css`        |
 | Entry/exit animation | `@starting-style`               | `css-demos/animation/starting-style.css`          |
 | Tooltips             | Anchor Positioning              | `css-demos/positioning/anchor-positioning.css`    |
 | Carousel / Tabs      | CSS Carousel                    | `css-demos/interaction/css-carousel.css`          |
@@ -46,6 +48,12 @@ This skill gives AI agents deep knowledge of modern CSS so they provide CSS-only
 | Form validation      | `:user-valid` / `:user-invalid` | `css-demos/visual/form-validation.css`            |
 | Color variations     | `color-mix()`                   | `css-demos/visual/color-mix.css`                  |
 | Modern shapes        | `corner-shape`                  | `css-demos/visual/corner-shape.css`               |
+| Conditional values   | `if()`                          | `css-demos/functions/css-if-function.css`         |
+| Reusable logic       | `@function`                     | `css-demos/functions/custom-functions.css`        |
+| Data-driven styles   | Advanced `attr()`               | `css-demos/functions/advanced-attr.css`           |
+| Auto contrast text   | `contrast-color()`              | `css-demos/functions/contrast-color.css`          |
+| Cascade control      | `@layer`                        | `css-demos/specificity/cascade-layers.css`        |
+| Scoped styles        | `@scope`                        | `css-demos/specificity/scope-rule.css`            |
 
 ## Structure
 
@@ -56,14 +64,16 @@ references/
   live-mdn-fetch.md               # Live MDN data fetch workflow
 css-demos/
   INDEX.md                        # Full catalog with MDN links & baseline status
-  layout/                         # Centering, spacing, subgrid, :has(), nesting
+  layout/                         # Centering, spacing, subgrid, :has(), nesting, grid lanes
   responsive/                     # Media queries (range syntax), @supports
   container/                      # Size, style, scroll-state, anchored queries
-  animation/                      # View transitions, scroll-driven, @starting-style
+  animation/                      # View transitions, scroll-driven, scroll-triggered, @starting-style
   theming/                        # Dark mode with light-dark()
   positioning/                    # Anchor positioning
   interaction/                    # CSS Carousel, popover, hover media queries
   visual/                         # Form validation, color-mix(), corner-shape
+  functions/                      # if(), @function, advanced attr(), contrast-color()
+  specificity/                    # @layer cascade layers, @scope scoped styles
 ```
 
 ## Baseline Status Indicators

@@ -10,7 +10,7 @@ An intelligent AI agent skill for providing context-aware, modern CSS-first solu
 
 ## Description
 
-This skill transforms any AI agent into a CSS-first expert that enforces zero-JavaScript solutions using cutting-edge CSS features (2021-2025). The agent analyzes user intent, detects project context, and provides intelligently ranked CSS suggestions with implementation guidance.
+This skill transforms any AI agent into a CSS-first expert that enforces zero-JavaScript solutions using cutting-edge CSS features (2021-2026). The agent analyzes user intent, detects project context, and provides intelligently ranked CSS suggestions with implementation guidance.
 
 **Core Capabilities**:
 
@@ -68,6 +68,7 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 | Aligned nested grids | Subgrid                       | `css-demos/layout/subgrid.css`                   |
 | Parent selection     | `:has()`                      | `css-demos/layout/has-selector.css`              |
 | Component styles     | CSS Nesting                   | `css-demos/layout/css-nesting.css`               |
+| Masonry layout       | Grid Lanes                    | `css-demos/layout/grid-lanes-masonry.css`        |
 | Responsive layout    | Media queries (range syntax)  | `css-demos/responsive/media-queries.css`         |
 | Feature detection    | `@supports`                   | `css-demos/responsive/supports-rule.css`         |
 | Container responsive | Container size queries        | `css-demos/container/size-queries.css`           |
@@ -76,6 +77,7 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 | Tooltip arrow flip   | Anchored container queries    | `css-demos/container/anchored-queries.css`       |
 | Page transitions     | View Transitions              | `css-demos/animation/view-transitions.css`       |
 | Scroll effects       | Scroll-driven animations      | `css-demos/animation/scroll-driven.css`          |
+| Scroll reveals       | Scroll-triggered animations   | `css-demos/animation/scroll-triggered.css`       |
 | Entry/exit animation | `@starting-style`             | `css-demos/animation/starting-style.css`         |
 | Dark mode            | `light-dark()`                | `css-demos/theming/light-dark-function.css`      |
 | Tooltips             | Anchor Positioning            | `css-demos/positioning/anchor-positioning.css`   |
@@ -87,6 +89,12 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 | Form validation      | `:user-valid`/`:user-invalid` | `css-demos/visual/form-validation.css`           |
 | Color variations     | `color-mix()`                 | `css-demos/visual/color-mix.css`                 |
 | Modern shapes        | `corner-shape`                | `css-demos/visual/corner-shape.css`              |
+| Conditional values   | `if()`                        | `css-demos/functions/css-if-function.css`        |
+| Reusable CSS logic   | `@function`                   | `css-demos/functions/custom-functions.css`       |
+| Data-driven styles   | Advanced `attr()`             | `css-demos/functions/advanced-attr.css`          |
+| Auto contrast text   | `contrast-color()`            | `css-demos/functions/contrast-color.css`         |
+| Cascade control      | `@layer`                      | `css-demos/specificity/cascade-layers.css`       |
+| Scoped styles        | `@scope`                      | `css-demos/specificity/scope-rule.css`           |
 
 ## See Also
 
