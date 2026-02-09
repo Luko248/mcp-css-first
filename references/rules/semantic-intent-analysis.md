@@ -146,15 +146,19 @@ Solution: `box-shadow` with appropriate values
 
 ### 6. Interaction Intent 🖱️
 
-**Keywords**: click, hover, focus, active, disabled, button, link, interactive, state
+**Keywords**: click, hover, focus, active, disabled, button, link, interactive, state, carousel, slider, tabs, tab panel, scroll spy, navigation dots, pagination
 
 **User Might Say**:
 - "Show feedback when hovering"
 - "Style the focused input"
 - "Make buttons look clickable"
 - "Disable button appearance"
+- "Create a carousel"
+- "Build tabs without JavaScript"
+- "Add a scroll spy sidebar"
+- "Image slider with dots"
 
-**Intent**: User wants to provide interaction feedback
+**Intent**: User wants to provide interaction feedback or create interactive components
 
 **CSS Solutions**:
 - `:hover`, `:focus-visible`, `:active` pseudo-classes
@@ -162,12 +166,19 @@ Solution: `box-shadow` with appropriate values
 - `cursor` property
 - Transitions for smooth state changes
 - `:has()` for parent state styling
+- CSS Carousel features (`::scroll-button()`, `::scroll-marker-group`, `::scroll-marker`, `:target-current`) for carousels, tabs, and scroll spy — see `css-demos/interaction/css-carousel.css`
 
 **Example**:
 ```
 User: "Make the button change color when I hover"
 Intent: INTERACTION (hover feedback)
 Solution: `:hover` pseudo-class with transition
+```
+
+```
+User: "I need CSS-only tabs"
+Intent: INTERACTION (tab switching)
+Solution: CSS Carousel with `::scroll-marker` as tab labels and `:target-current` for active state
 ```
 
 ---

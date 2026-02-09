@@ -92,7 +92,7 @@ The following are **CSS-only** (no JavaScript needed):
 - ✅ Dark mode / light mode
 - ✅ Responsive layouts
 - ✅ Tooltips (with anchor positioning)
-- ✅ Carousels (with scroll snap)
+- ✅ Carousels, tabs, scroll spy (with CSS Carousel features)
 - ✅ Accordions (with `<details>`)
 - ✅ Modals (with `<dialog>` + CSS)
 - ✅ Form validation feedback

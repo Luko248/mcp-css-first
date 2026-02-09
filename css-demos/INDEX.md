@@ -80,12 +80,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 
 ## Interaction
 
-### [carousel-scroll-snap.css](interaction/carousel-scroll-snap.css)
-**CSS-Only Carousel**
-- Baseline: 🟢 Widely Available (98%)
-- MDN: [Scroll Snap](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap)
-- Task: Create an image carousel
-- Features: Scroll snap, scroll behavior, modern pseudo-elements
+### [css-carousel.css](interaction/css-carousel.css)
+**CSS Carousel — Slider, Tabs, Scroll Spy**
+- Baseline: 🟣 Experimental (Chrome 135+)
+- MDN: [CSS Carousel Features](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Overflow/Carousels)
+- Task: Build carousels, tabs, and scroll spy with only CSS
+- Features: `::scroll-button()`, `::scroll-marker-group`, `::scroll-marker`, `:target-current`, `:target-before`, `scroll-state()`, anchor positioning
+- Patterns: Horizontal slider, tab panels, vertical scroll spy, Netflix-style series grid
 
 ---
 
