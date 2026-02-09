@@ -9,6 +9,7 @@
  *
  * Task: Center a card horizontally and vertically
  * Why: Uses logical properties for RTL support with multiple modern centering approaches
+ * Last verified: 2026-02
  */
 
 /* === 1. align-content centering (simplest, single-axis) === */

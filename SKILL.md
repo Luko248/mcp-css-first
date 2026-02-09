@@ -1,6 +1,7 @@
 ---
 name: css-first
 description: CSS-first expert guidance with live MDN Baseline and feature data. Use when asked about CSS implementations, modern CSS features, browser support, Baseline status, or when listing newly available web platform features.
+license: MIT
 ---
 
 # CSS First Agent Skill
@@ -12,6 +13,7 @@ An intelligent AI agent skill for providing context-aware, modern CSS-first solu
 This skill transforms any AI agent into a CSS-first expert that enforces zero-JavaScript solutions using cutting-edge CSS features (2021-2025). The agent analyzes user intent, detects project context, and provides intelligently ranked CSS suggestions with implementation guidance.
 
 **Core Capabilities**:
+
 - **Semantic Intent Recognition**: Understands layout, animation, spacing, responsive, visual, and interaction intents
 - **Framework Detection**: Automatically detects React, Vue, Angular, Svelte, Tailwind, Bootstrap, etc.
 - **Logical-First Approach**: Prioritizes writing-mode aware properties for internationalization
@@ -21,6 +23,7 @@ This skill transforms any AI agent into a CSS-first expert that enforces zero-Ja
 ## When to Use This Skill
 
 Use this skill when:
+
 - User asks for UI implementation solutions
 - User needs to center elements, create layouts, add animations
 - User wants responsive design patterns
@@ -35,15 +38,15 @@ Use the live fetch workflow defined in `references/live-mdn-fetch.md` whenever B
 
 All behavior rules are documented in `references/rules/`:
 
-| Rule | File | Summary |
-|------|------|---------|
-| CSS-Only Enforcement | [`references/rules/css-only-enforcement.md`](references/rules/css-only-enforcement.md) | Always prioritize CSS over JavaScript |
-| Logical Properties First | [`references/rules/logical-properties-first.md`](references/rules/logical-properties-first.md) | Use `inline-size` over `width`, etc. |
-| Modern CSS Features | [`references/rules/modern-css-features.md`](references/rules/modern-css-features.md) | Prioritize 2021-2025 features with baseline |
-| Semantic Intent Analysis | [`references/rules/semantic-intent-analysis.md`](references/rules/semantic-intent-analysis.md) | Detect user intent before suggesting solutions |
-| Framework Awareness | [`references/rules/framework-awareness.md`](references/rules/framework-awareness.md) | Auto-detect and adapt to project frameworks |
-| Browser Support | [`references/rules/browser-support-consideration.md`](references/rules/browser-support-consideration.md) | Always provide baseline status indicators |
-| Progressive Enhancement | [`references/rules/progressive-enhancement.md`](references/rules/progressive-enhancement.md) | Core functionality first, enhancements on top |
+| Rule                     | File                                                                                                     | Summary                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| CSS-Only Enforcement     | [`references/rules/css-only-enforcement.md`](references/rules/css-only-enforcement.md)                   | Always prioritize CSS over JavaScript          |
+| Logical Properties First | [`references/rules/logical-properties-first.md`](references/rules/logical-properties-first.md)           | Use `inline-size` over `width`, etc.           |
+| Modern CSS Features      | [`references/rules/modern-css-features.md`](references/rules/modern-css-features.md)                     | Prioritize 2021-2025 features with baseline    |
+| Semantic Intent Analysis | [`references/rules/semantic-intent-analysis.md`](references/rules/semantic-intent-analysis.md)           | Detect user intent before suggesting solutions |
+| Framework Awareness      | [`references/rules/framework-awareness.md`](references/rules/framework-awareness.md)                     | Auto-detect and adapt to project frameworks    |
+| Browser Support          | [`references/rules/browser-support-consideration.md`](references/rules/browser-support-consideration.md) | Always provide baseline status indicators      |
+| Progressive Enhancement  | [`references/rules/progressive-enhancement.md`](references/rules/progressive-enhancement.md)             | Core functionality first, enhancements on top  |
 
 ## CSS Demos
 
@@ -58,19 +61,32 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 
 ## Quick Reference
 
-| User Intent | CSS Solution | Demo File |
-|-------------|--------------|-----------|
-| Center element | Flexbox/Grid | `css-demos/layout/centering-logical.css` |
-| Responsive layout | Container Queries | `css-demos/responsive/container-queries.css` |
-| Dark mode | `light-dark()` | `css-demos/theming/light-dark-function.css` |
-| Page transitions | View Transitions | `css-demos/animation/view-transitions.css` |
-| Scroll effects | Scroll-driven | `css-demos/animation/scroll-driven.css` |
-| Tooltips | Anchor Positioning | `css-demos/positioning/anchor-positioning.css` |
-| Spacing | Logical Properties | `css-demos/layout/logical-spacing.css` |
-| Carousel / Slider | CSS Carousel | `css-demos/interaction/css-carousel.css` |
-| Tabs | CSS Carousel | `css-demos/interaction/css-carousel.css` |
-| Scroll spy | CSS Carousel | `css-demos/interaction/css-carousel.css` |
-| Form validation | `:user-valid`/`:user-invalid` | `css-demos/visual/form-validation.css` |
+| User Intent          | CSS Solution                  | Demo File                                        |
+| -------------------- | ----------------------------- | ------------------------------------------------ |
+| Center element       | Flexbox / Grid                | `css-demos/layout/centering-logical.css`         |
+| Spacing              | Logical Properties            | `css-demos/layout/logical-spacing.css`           |
+| Aligned nested grids | Subgrid                       | `css-demos/layout/subgrid.css`                   |
+| Parent selection     | `:has()`                      | `css-demos/layout/has-selector.css`              |
+| Component styles     | CSS Nesting                   | `css-demos/layout/css-nesting.css`               |
+| Responsive layout    | Media queries (range syntax)  | `css-demos/responsive/media-queries.css`         |
+| Feature detection    | `@supports`                   | `css-demos/responsive/supports-rule.css`         |
+| Container responsive | Container size queries        | `css-demos/container/size-queries.css`           |
+| Component theming    | Container style queries       | `css-demos/container/style-queries.css`          |
+| Sticky detection     | Scroll state queries          | `css-demos/container/scroll-state-queries.css`   |
+| Tooltip arrow flip   | Anchored container queries    | `css-demos/container/anchored-queries.css`       |
+| Page transitions     | View Transitions              | `css-demos/animation/view-transitions.css`       |
+| Scroll effects       | Scroll-driven animations      | `css-demos/animation/scroll-driven.css`          |
+| Entry/exit animation | `@starting-style`             | `css-demos/animation/starting-style.css`         |
+| Dark mode            | `light-dark()`                | `css-demos/theming/light-dark-function.css`      |
+| Tooltips             | Anchor Positioning            | `css-demos/positioning/anchor-positioning.css`   |
+| Carousel / Slider    | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
+| Tabs                 | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
+| Scroll spy           | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
+| Popovers / Dropdowns | Popover API                   | `css-demos/interaction/popover.css`              |
+| Touch vs pointer     | Hover media queries           | `css-demos/interaction/hover-media-queries.css`  |
+| Form validation      | `:user-valid`/`:user-invalid` | `css-demos/visual/form-validation.css`           |
+| Color variations     | `color-mix()`                 | `css-demos/visual/color-mix.css`                 |
+| Modern shapes        | `corner-shape`                | `css-demos/visual/corner-shape.css`              |
 
 ## See Also
 

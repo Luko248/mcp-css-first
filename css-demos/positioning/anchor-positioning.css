@@ -12,6 +12,7 @@
  * Task: Create a tooltip positioned relative to a button
  * Why: CSS Anchor Positioning eliminates JavaScript for tooltip positioning,
  *      with automatic position adjustments and collision detection.
+ * Last verified: 2026-02
  */
 
 .button {

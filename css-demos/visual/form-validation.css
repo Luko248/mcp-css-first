@@ -11,6 +11,7 @@
  * Task: Style form with validation feedback
  * Why: Uses :user-valid and :user-invalid pseudo-classes for validation feedback
  *      without JavaScript. Includes proper focus states for accessibility.
+ * Last verified: 2026-02
  */
 
 .input {

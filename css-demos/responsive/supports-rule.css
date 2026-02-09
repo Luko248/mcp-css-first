@@ -1,0 +1,146 @@
+/**
+ * @supports Feature Detection
+ *
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports
+ * Baseline: 🟢 Widely Available
+ * Support: 98%
+ *
+ * Task: Detect CSS feature support and provide progressive enhancement
+ * Why: @supports gates modern CSS behind capability checks so fallbacks
+ *      work in older browsers while modern browsers get enhanced styles
+ * Last verified: 2026-02
+ */
+
+
+/* ==========================================================================
+   1. PROPERTY SUPPORT — check if property:value is supported
+   ========================================================================== */
+
+/* Fallback layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Enhancement: use container queries if supported */
+@supports (container-type: inline-size) {
+  .container {
+    container-type: inline-size;
+    max-inline-size: 100%;
+  }
+}
+
+/* Gate anchor positioning */
+@supports (position-anchor: --x) {
+  .tooltip {
+    position: fixed;
+    position-anchor: --trigger;
+    position-area: block-end;
+  }
+}
+
+
+/* ==========================================================================
+   2. SELECTOR SUPPORT — check if selector syntax is understood
+   Core: @supports selector()
+   ========================================================================== */
+
+/* Check for :has() support */
+@supports selector(:has(a)) {
+  .card:has(img) {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* Check for :user-valid support */
+@supports selector(:user-valid) {
+  input:user-valid {
+    border-color: green;
+  }
+}
+
+
+/* ==========================================================================
+   3. LOGICAL OPERATORS — and, or, not
+   ========================================================================== */
+
+/* Multiple conditions — all must be true */
+@supports (container-type: inline-size) and (display: grid) {
+  /* container queries + grid both supported */
+}
+
+/* Either condition — one must be true */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Negation — feature NOT supported */
+@supports not (scroll-timeline-name: --x) {
+  /* fallback for browsers without scroll timelines */
+  .animated {
+    opacity: 1;
+  }
+}
+
+
+/* ==========================================================================
+   4. FONT SUPPORT — check font tech and format
+   ========================================================================== */
+
+@supports font-tech(color-COLRv1) {
+  /* use color font features */
+}
+
+@supports font-format(woff2) {
+  /* woff2 is available */
+}
+
+
+/* ==========================================================================
+   5. COMMON PROGRESSIVE ENHANCEMENT PATTERNS
+   ========================================================================== */
+
+/* Anchor positioning with fallback */
+.tooltip {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 50%;
+  translate: -50% 0.5rem;
+}
+
+@supports (position-area: block-end) {
+  .tooltip {
+    position: fixed;
+    position-anchor: --tip;
+    position-area: block-end;
+    inset: unset;
+    translate: none;
+  }
+}
+
+/* light-dark() with fallback */
+.surface {
+  background: white;
+  color: #333;
+}
+
+@supports (background: light-dark(white, black)) {
+  .surface {
+    background: light-dark(white, #1a1a1a);
+    color: light-dark(#333, #eee);
+  }
+}
+
+/* corner-shape with fallback */
+.card {
+  border-radius: 1rem;
+}
+
+@supports (corner-shape: squircle) {
+  .card {
+    corner-shape: squircle;
+  }
+}

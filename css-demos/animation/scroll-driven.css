@@ -11,6 +11,7 @@
  * Task: Create animation that responds to scroll
  * Why: Scroll-driven animations with animation-timeline create performant,
  *      declarative scroll effects without JavaScript or scroll listeners.
+ * Last verified: 2026-02
  */
 
 /* Fade in elements as they enter viewport */

@@ -10,6 +10,7 @@
  * Task: Implement dark mode support
  * Why: Native CSS dark mode with light-dark() function and color-scheme property.
  *      No JavaScript or media queries needed for basic theming.
+ * Last verified: 2026-02
  */
 
 :root {

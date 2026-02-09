@@ -361,6 +361,107 @@ button:focus:not(:focus-visible) {
 
 ---
 
+### Interaction (2024-2025)
+
+#### ✅ CSS Carousel Features (2025)
+**Status**: 🟣 Experimental (Chrome 135+)
+
+```css
+.carousel {
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+
+.slide::scroll-marker { content: ""; }
+.slide::scroll-marker:target-current { /* active dot */ }
+
+.carousel::scroll-button(left) { content: "\25C4" / "Previous"; }
+.carousel::scroll-button(right) { content: "\25BA" / "Next"; }
+```
+
+**Use instead of**: JavaScript carousels, tab components, scroll spy
+
+---
+
+#### ✅ Popover API (2024)
+**Status**: 🔵 Newly Available
+
+```css
+[popover]:popover-open { display: block; }
+[popover]::backdrop { background: rgb(0 0 0 / 0.3); }
+```
+
+HTML: `<button popovertarget="menu">Open</button><div id="menu" popover>...</div>`
+
+**Use instead of**: JavaScript toggle logic, z-index stacking
+
+---
+
+#### ✅ Invoker Commands (2025)
+**Status**: 🟣 Experimental
+
+HTML: `<button commandfor="dialog" command="show-modal">Open</button>`
+
+**Use instead of**: JavaScript event listeners for dialog/popover triggers
+
+---
+
+### Visual (2025)
+
+#### ✅ corner-shape (2025)
+**Status**: 🟣 Experimental (Chrome 139+)
+
+```css
+.squircle { border-radius: 20%; corner-shape: squircle; }
+.bevel    { border-radius: 1rem; corner-shape: bevel; }
+.scoop    { border-radius: 2rem; corner-shape: scoop; }
+.notch    { border-radius: 1rem; corner-shape: notch; }
+```
+
+**Use instead of**: SVG/clip-path workarounds for non-round corners
+
+---
+
+### Sizing & Interpolation (2024-2025)
+
+#### ✅ interpolate-size (2024)
+**Status**: 🟣 Experimental
+
+```css
+:root { interpolate-size: allow-keywords; }
+
+.panel {
+  block-size: 0;
+  transition: block-size 0.3s;
+}
+.panel.open { block-size: auto; }
+```
+
+**Use instead of**: JavaScript height measurement for expand/collapse
+
+---
+
+### Responsive (2024-2025)
+
+#### ✅ Scroll State Queries (2025)
+**Status**: 🟣 Experimental (Chrome 133+)
+
+```css
+.container { container-type: scroll-state; }
+
+@container scroll-state(stuck: top) {
+  .header { box-shadow: 0 2px 8px rgb(0 0 0 / 0.15); }
+}
+
+@container scroll-state(snapped: inline) {
+  .slide > * { opacity: 1; }
+}
+```
+
+**Use instead of**: JavaScript IntersectionObserver for sticky/snap detection
+
+---
+
 ## Feature Detection
 
 When using experimental features, provide fallbacks:
@@ -410,6 +511,12 @@ Replace these old patterns with modern alternatives:
 | `:focus` outlines | `:focus-visible` | 🟢 |
 | Manual color variations | `color-mix()` | 🔵 |
 | `left/right/top/bottom` | `inset-inline/block` | 🟢 |
+| JavaScript carousels/tabs | CSS Carousel pseudo-elements | 🟣 |
+| JavaScript toggle for popovers | Popover API + `popovertarget` | 🔵 |
+| JS height measurement for expand | `interpolate-size: allow-keywords` | 🟣 |
+| JS IntersectionObserver for sticky | `@container scroll-state(stuck:)` | 🟣 |
+| JS entry animations | `@starting-style` + `allow-discrete` | 🔵 |
+| `opacity: 0` workarounds | `@starting-style` for display changes | 🔵 |
 
 ---
 

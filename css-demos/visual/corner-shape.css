@@ -1,0 +1,161 @@
+/**
+ * CSS corner-shape Property
+ *
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape
+ * Reference: https://css-tricks.com/what-can-we-actually-do-with-corner-shape/
+ * Baseline: 🟣 Experimental
+ * Support: Chrome 139+
+ *
+ * Task: Create modern border shapes — bevels, scoops, squircles, notches, tooltip arrows
+ * Why: corner-shape goes beyond round corners to create distinctive UI shapes
+ *      with a single property — no SVG or clip-path workarounds needed
+ * Last verified: 2026-02
+ */
+
+
+/* ==========================================================================
+   VALUES REFERENCE
+
+   round           — default, same as standard border-radius
+   squircle        — smooth square-circle hybrid (superellipse(2))
+   bevel           — straight diagonal cut (superellipse(0))
+   scoop           — concave inward curve (superellipse(-1))
+   notch           — sharp inward notch (superellipse(-infinity))
+   square          — removes border-radius effect (superellipse(infinity))
+   superellipse(n) — custom curve, n controls shape
+
+   Logical longhands:
+   corner-start-start-shape, corner-start-end-shape,
+   corner-end-start-shape, corner-end-end-shape
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. SQUIRCLE — smooth modern corners (iOS-style icons)
+   ========================================================================== */
+
+.squircle {
+  border-radius: 20%;
+  corner-shape: squircle;
+}
+
+
+/* ==========================================================================
+   2. BEVEL — snipped/cut corners
+   ========================================================================== */
+
+.bevel {
+  border-radius: 1rem;
+  corner-shape: bevel;
+}
+
+/* Angled section divider — bevel only bottom-right */
+.slanted-section {
+  corner-shape: round round bevel round;
+  border-radius: 0 0 100% 0 / 0 0 3rem 0;
+}
+
+/* Sale tag / ribbon arrow */
+.tag {
+  corner-shape: round bevel bevel round;
+  border-radius: 1rem 3rem 3rem 1rem / 1rem 50% 50% 1rem;
+}
+
+
+/* ==========================================================================
+   3. SCOOP — concave curves
+   ========================================================================== */
+
+.scoop {
+  border-radius: 2rem;
+  corner-shape: scoop;
+}
+
+/* Ticket / coupon cutout — scoop only sides */
+.ticket {
+  corner-shape: round scoop scoop round;
+  border-radius: 0.5rem 1.5rem 1.5rem 0.5rem;
+}
+
+
+/* ==========================================================================
+   4. NOTCH — sharp inward cuts
+   ========================================================================== */
+
+.notch {
+  border-radius: 1rem;
+  corner-shape: notch;
+}
+
+/* Tab with notched bottom corners */
+.tab-active {
+  corner-shape: round round notch notch;
+  border-radius: 0.5rem 0.5rem 0.75rem 0.75rem;
+}
+
+
+/* ==========================================================================
+   5. MIXED CORNERS — different shapes per corner
+   ========================================================================== */
+
+.mixed {
+  /* top-left, top-right, bottom-right, bottom-left */
+  corner-shape: squircle bevel scoop round;
+  border-radius: 2rem;
+}
+
+
+/* ==========================================================================
+   6. TOOLTIP ARROW WITH SCOOP — CSS-only caret using corner-shape
+   Core: pseudo-element with scoop creates a smooth arrow point
+   ========================================================================== */
+
+.tooltip {
+  position: fixed;
+  position-anchor: --trigger;
+  position-area: block-end;
+  margin-block-start: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* Arrow pointing up (tooltip below trigger) */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  inline-size: 0.5rem;
+  block-size: 1rem;
+  background: inherit;
+  corner-shape: scoop;
+  border-start-start-radius: 100% 50%;
+  border-end-start-radius: 100% 50%;
+}
+
+/* Flip arrow when tooltip is above (with anchored container query) */
+@container anchored(fallback: flip-block) {
+  .tooltip::before {
+    inset-block-end: unset;
+    inset-block-start: 100%;
+    rotate: 180deg;
+  }
+}
+
+
+/* ==========================================================================
+   7. ANIMATED CORNER SHAPE — morphing between shapes
+   ========================================================================== */
+
+@keyframes morph {
+  0%   { corner-shape: round; }
+  25%  { corner-shape: squircle; }
+  50%  { corner-shape: bevel; }
+  75%  { corner-shape: scoop; }
+  100% { corner-shape: round; }
+}
+
+.morphing {
+  border-radius: 2rem;
+  animation: morph 4s linear infinite;
+}

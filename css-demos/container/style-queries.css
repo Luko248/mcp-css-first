@@ -10,6 +10,7 @@
  * Task: Style components based on parent state
  * Why: Container style queries allow components to respond to parent custom properties,
  *      enabling true component-driven styling without JavaScript.
+ * Last verified: 2026-02
  */
 
 .card-container {
