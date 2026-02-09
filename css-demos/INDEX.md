@@ -53,6 +53,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Fix z-index issues by creating explicit stacking contexts
 - Features: `isolation: isolate`, component-scoped z-index, mix-blend-mode containment, z-index scale with custom properties
 
+### [stretch-keyword.css](layout/stretch-keyword.css)
+**stretch Sizing Keyword**
+- Baseline: 🟡 Limited Availability
+- MDN: [stretch](https://developer.mozilla.org/en-US/docs/Web/CSS/stretch)
+- Task: Fill containing block while respecting margins
+- Features: `inline-size: stretch`, margin-safe full-width, form inputs, sticky bars, comparison vs `100%`, `@supports` fallback
+
 ---
 
 ## Responsive
@@ -120,7 +127,7 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Baseline: 🔵 Newly Available (90%)
 - MDN: [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
 - Task: Add smooth page transitions
-- Features: View transitions, modern translate property, named transitions, scoped view transitions (subtree transitions, concurrent animations)
+- Features: View transitions, named transitions, scoped view transitions (subtree transitions, concurrent animations), nested view transition groups (`view-transition-group: contain/nearest`, `::view-transition-group-children()`, 3D clipping)
 
 ### [scroll-driven.css](animation/scroll-driven.css)
 **Scroll-Driven Animations**
@@ -176,6 +183,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Build carousels, tabs, and scroll spy with only CSS
 - Features: `::scroll-button()`, `::scroll-marker-group`, `::scroll-marker`, `:target-current`, `:target-before`, `scroll-state()`, anchor positioning
 - Patterns: Horizontal slider, tab panels, vertical scroll spy, Netflix-style series grid
+
+### [interest-invokers.css](interaction/interest-invokers.css)
+**Interest Invokers — Hover/Focus-Triggered Popovers**
+- Baseline: 🟣 Experimental (Chrome behind flag)
+- MDN: [Interest Invokers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using_interest_invokers), [interest-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interest-delay)
+- Task: Show popovers on hover/focus without JavaScript
+- Features: `interestfor` attribute, `popover="hint"`, `interest-delay`, `:interest-target`, link previews, mega-menu, anchor positioning
 
 ### [popover.css](interaction/popover.css)
 **Popover API with CSS**
@@ -238,6 +252,20 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Draw separator lines between grid columns, flex items, or multicol columns
 - Features: `column-rule`, `row-rule`, `repeat()` patterns, `column-rule-offset`, multicol/grid/flex support, `@supports` fallback
 
+### [backdrop-filter.css](visual/backdrop-filter.css)
+**backdrop-filter — Glassmorphism & Background Effects**
+- Baseline: 🔵 Newly Available (92%)
+- MDN: [backdrop-filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter)
+- Task: Apply visual effects to the area behind an element
+- Features: `blur()`, `brightness()`, `contrast()`, `grayscale()`, `hue-rotate()`, `invert()`, `saturate()`, `sepia()`, glassmorphism, frosted nav, tinted glass, `@supports` fallback
+
+### [relative-colors.css](visual/relative-colors.css)
+**Relative Color Syntax — Color Conversion & Channel Manipulation**
+- Baseline: 🔵 Newly Available (90%)
+- MDN: [Using Relative Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors)
+- Task: Create color variants, convert between color spaces, manipulate channels
+- Features: `oklch(from var(--color) ...)`, lighten/darken, opacity adjust, desaturate, complementary/triadic palettes, color space conversion, dynamic theming, tint/shade scales
+
 ### [clip-path-shape.css](visual/clip-path-shape.css)
 **clip-path: shape() — Responsive Clipping & Scroll Morphing**
 - Baseline: 🟣 Experimental (Chrome 135+, Safari 18.4+)
@@ -259,6 +287,14 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - MDN: [corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape)
 - Task: Create modern border shapes — bevels, scoops, squircles, notches, tooltip arrows
 - Features: `corner-shape` (round, squircle, bevel, scoop, notch, superellipse), tooltip arrow with scoop, animated morphing
+
+### [text-box-trim.css](visual/text-box-trim.css)
+**text-box-trim & text-box-edge — Optical Text Alignment**
+- Baseline: 🟡 Limited Availability
+- MDN: [text-box-trim](https://developer.mozilla.org/en-US/docs/Web/CSS/text-box-trim), [text-box-edge](https://developer.mozilla.org/en-US/docs/Web/CSS/text-box-edge)
+- Reference: [CSS text-box-trim (Chrome Blog)](https://developer.chrome.com/blog/css-text-box-trim)
+- Task: Remove extra whitespace above/below text for pixel-perfect vertical centering
+- Features: `text-box-trim`, `text-box-edge`, `text-box` shorthand, cap/alphabetic/ex metrics, buttons, badges, headings, `@supports` fallback
 
 ### [overflow-clip-margin.css](visual/overflow-clip-margin.css)
 **overflow: clip + overflow-clip-margin**
@@ -292,6 +328,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Reference: [Chrome Blog](https://developer.chrome.com/blog/advanced-attr)
 - Task: Read HTML attributes as typed CSS values — colors, numbers, lengths
 - Features: `type(<color>)`, `type(<integer>)`, `type(<custom-ident>)`, dimension units, `raw-string`, `@property` + `attr()` conic progress demo, fallbacks
+
+### [sibling-functions.css](functions/sibling-functions.css)
+**sibling-index() & sibling-count() Functions**
+- Baseline: 🟣 Experimental (Chrome behind flag)
+- MDN: [sibling-index()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/sibling-index), [sibling-count()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/sibling-count)
+- Task: Dynamically style elements based on their position among siblings
+- Features: Staggered animations (one-line), reverse stagger, rainbow colors, progressive sizing, circular layout without `--i`, dynamic opacity
 
 ### [trigonometric-functions.css](functions/trigonometric-functions.css)
 **CSS Trigonometric Functions — sin(), cos(), tan(), atan2()**

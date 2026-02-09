@@ -434,6 +434,25 @@ button:focus:not(:focus-visible) {
 
 ---
 
+#### ✅ sibling-index() & sibling-count() (2025)
+**Status**: 🟣 Experimental
+
+```css
+/* ❌ OLD — repetitive nth-child rules */
+.item:nth-child(1) { animation-delay: 0.1s; }
+.item:nth-child(2) { animation-delay: 0.2s; }
+
+/* ✅ NEW — single declaration */
+.item { animation-delay: calc(sibling-index() * 100ms); }
+
+/* Rainbow color distribution */
+.item { background: oklch(0.7 0.15 calc(360deg / sibling-count() * sibling-index())); }
+```
+
+**Use instead of**: Inline `--i` variables, repetitive `:nth-child()` rules
+
+---
+
 ### Interaction (2024-2025)
 
 #### ✅ CSS Carousel Features (2025)
@@ -496,6 +515,22 @@ HTML: `<button popovertarget="menu">Open</button><div id="menu" popover>...</div
 HTML: `<button commandfor="dialog" command="show-modal">Open</button>`
 
 **Use instead of**: JavaScript event listeners for dialog/popover triggers
+
+---
+
+#### ✅ Interest Invokers (2025)
+**Status**: 🟣 Experimental
+
+```html
+<button interestfor="tooltip">Hover me</button>
+<div id="tooltip" popover="hint">Tooltip content</div>
+```
+
+```css
+[interestfor] { interest-delay: 300ms 600ms; }
+```
+
+**Use instead of**: JavaScript mouseenter/mouseleave handlers for hover tooltips and previews
 
 ---
 
@@ -625,6 +660,36 @@ MDN: [scrollbar-gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollb
 
 ---
 
+#### ✅ stretch Sizing Keyword (2025)
+**Status**: 🟡 Limited Availability
+
+```css
+/* ❌ WRONG — 100% + margin = overflow */
+.input { inline-size: 100%; margin-inline: 1rem; }
+
+/* ✅ CORRECT — stretch accounts for margins */
+.input { inline-size: stretch; margin-inline: 1rem; }
+```
+
+**Use instead of**: `width: 100%` + margin (overflow), `calc(100% - 2rem)` workarounds, `-webkit-fill-available`
+
+---
+
+#### ✅ text-box-trim & text-box-edge (2025)
+**Status**: 🟡 Limited Availability
+
+```css
+/* Pixel-perfect optical centering */
+.button {
+  padding-block: 0.75rem;
+  text-box: trim-both cap alphabetic;
+}
+```
+
+**Use instead of**: Manual line-height hacks, negative margins for text alignment
+
+---
+
 ### Responsive (2024-2025)
 
 #### ✅ Scroll State Queries (2025)
@@ -704,6 +769,10 @@ Replace these old patterns with modern alternatives:
 | JS IntersectionObserver for sticky | `@container scroll-state(stuck:)` | 🟣 |
 | JS entry animations | `@starting-style` + `allow-discrete` | 🔵 |
 | `opacity: 0` workarounds | `@starting-style` for display changes | 🔵 |
+| Inline `--i` + nth-child stagger | `sibling-index()` / `sibling-count()` | 🟣 |
+| JS mouseenter/leave for tooltips | `interestfor` + `interest-delay` | 🟣 |
+| `line-height: 1` text centering | `text-box: trim-both cap alphabetic` | 🟡 |
+| `width: 100%` + margin overflow | `inline-size: stretch` | 🟡 |
 
 ---
 

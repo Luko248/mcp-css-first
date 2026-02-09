@@ -14,7 +14,7 @@ This skill transforms any AI agent into a CSS-first expert that enforces zero-Ja
 
 **Core Capabilities**:
 
-- **Semantic Intent Recognition**: Understands layout, animation, spacing, responsive, visual, and interaction intents
+- **Semantic Intent Recognition**: Understands layout, animation, spacing, responsive, visual, interaction, stacking, and typography intents
 - **Framework Detection**: Automatically detects React, Vue, Angular, Svelte, Tailwind, Bootstrap, etc.
 - **Logical-First Approach**: Prioritizes writing-mode aware properties for internationalization
 - **MDN Integration**: Pulls live browser support data and baseline status
@@ -61,40 +61,56 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 
 ## Quick Reference
 
-| User Intent          | CSS Solution                  | Demo File                                        |
-| -------------------- | ----------------------------- | ------------------------------------------------ |
-| Center element       | Flexbox / Grid                | `css-demos/layout/centering-logical.css`         |
-| Spacing              | Logical Properties            | `css-demos/layout/logical-spacing.css`           |
-| Aligned nested grids | Subgrid                       | `css-demos/layout/subgrid.css`                   |
-| Parent selection     | `:has()`                      | `css-demos/layout/has-selector.css`              |
-| Component styles     | CSS Nesting                   | `css-demos/layout/css-nesting.css`               |
-| Masonry layout       | Grid Lanes                    | `css-demos/layout/grid-lanes-masonry.css`        |
-| Responsive layout    | Media queries (range syntax)  | `css-demos/responsive/media-queries.css`         |
-| Feature detection    | `@supports`                   | `css-demos/responsive/supports-rule.css`         |
-| Container responsive | Container size queries        | `css-demos/container/size-queries.css`           |
-| Component theming    | Container style queries       | `css-demos/container/style-queries.css`          |
-| Sticky detection     | Scroll state queries          | `css-demos/container/scroll-state-queries.css`   |
-| Tooltip arrow flip   | Anchored container queries    | `css-demos/container/anchored-queries.css`       |
-| Page transitions     | View Transitions              | `css-demos/animation/view-transitions.css`       |
-| Scroll effects       | Scroll-driven animations      | `css-demos/animation/scroll-driven.css`          |
-| Scroll reveals       | Scroll-triggered animations   | `css-demos/animation/scroll-triggered.css`       |
-| Entry/exit animation | `@starting-style`             | `css-demos/animation/starting-style.css`         |
-| Dark mode            | `light-dark()`                | `css-demos/theming/light-dark-function.css`      |
-| Tooltips             | Anchor Positioning            | `css-demos/positioning/anchor-positioning.css`   |
-| Carousel / Slider    | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
-| Tabs                 | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
-| Scroll spy           | CSS Carousel                  | `css-demos/interaction/css-carousel.css`         |
-| Popovers / Dropdowns | Popover API                   | `css-demos/interaction/popover.css`              |
-| Touch vs pointer     | Hover media queries           | `css-demos/interaction/hover-media-queries.css`  |
-| Form validation      | `:user-valid`/`:user-invalid` | `css-demos/visual/form-validation.css`           |
-| Color variations     | `color-mix()`                 | `css-demos/visual/color-mix.css`                 |
-| Modern shapes        | `corner-shape`                | `css-demos/visual/corner-shape.css`              |
-| Conditional values   | `if()`                        | `css-demos/functions/css-if-function.css`        |
-| Reusable CSS logic   | `@function`                   | `css-demos/functions/custom-functions.css`       |
-| Data-driven styles   | Advanced `attr()`             | `css-demos/functions/advanced-attr.css`          |
-| Auto contrast text   | `contrast-color()`            | `css-demos/functions/contrast-color.css`         |
-| Cascade control      | `@layer`                      | `css-demos/specificity/cascade-layers.css`       |
-| Scoped styles        | `@scope`                      | `css-demos/specificity/scope-rule.css`           |
+| User Intent              | CSS Solution                    | Demo File                                              |
+| ------------------------ | ------------------------------- | ------------------------------------------------------ |
+| Center element           | Flexbox / Grid                  | `css-demos/layout/centering-logical.css`               |
+| Spacing                  | Logical Properties              | `css-demos/layout/logical-spacing.css`                 |
+| Aligned nested grids     | Subgrid                         | `css-demos/layout/subgrid.css`                         |
+| Parent selection         | `:has()`                        | `css-demos/layout/has-selector.css`                    |
+| Component styles         | CSS Nesting                     | `css-demos/layout/css-nesting.css`                     |
+| Masonry layout           | Grid Lanes                      | `css-demos/layout/grid-lanes-masonry.css`              |
+| z-index issues           | `isolation: isolate`            | `css-demos/layout/isolation-stacking.css`              |
+| Fill width with margins  | `stretch`                       | `css-demos/layout/stretch-keyword.css`                 |
+| Responsive layout        | Media queries (range syntax)    | `css-demos/responsive/media-queries.css`               |
+| Feature detection        | `@supports`                     | `css-demos/responsive/supports-rule.css`               |
+| Full-height sections     | Dynamic viewport units          | `css-demos/responsive/viewport-units.css`              |
+| Container responsive     | Container size queries          | `css-demos/container/size-queries.css`                 |
+| Component theming        | Container style queries         | `css-demos/container/style-queries.css`                |
+| Sticky detection         | Scroll state queries            | `css-demos/container/scroll-state-queries.css`         |
+| Tooltip arrow flip       | Anchored container queries      | `css-demos/container/anchored-queries.css`             |
+| Page transitions         | View Transitions (+ nested)     | `css-demos/animation/view-transitions.css`             |
+| Scroll effects           | Scroll-driven animations        | `css-demos/animation/scroll-driven.css`                |
+| Scroll reveals           | Scroll-triggered animations     | `css-demos/animation/scroll-triggered.css`             |
+| Entry/exit animation     | `@starting-style`               | `css-demos/animation/starting-style.css`               |
+| Dark mode                | `light-dark()`                  | `css-demos/theming/light-dark-function.css`            |
+| Tooltips                 | Anchor Positioning              | `css-demos/positioning/anchor-positioning.css`         |
+| Carousel / Slider        | CSS Carousel                    | `css-demos/interaction/css-carousel.css`               |
+| Tabs / Scroll spy        | CSS Carousel                    | `css-demos/interaction/css-carousel.css`               |
+| Popovers / Dropdowns     | Popover API                     | `css-demos/interaction/popover.css`                    |
+| Hover tooltips (no JS)   | Interest Invokers               | `css-demos/interaction/interest-invokers.css`          |
+| Touch vs pointer         | Hover media queries             | `css-demos/interaction/hover-media-queries.css`        |
+| Scroll chaining          | `overscroll-behavior`           | `css-demos/interaction/overscroll-behavior.css`        |
+| Fixed nav anchor offset  | `scroll-margin` / `scroll-padding` | `css-demos/interaction/scroll-margin-padding.css`  |
+| Highlight anchor target  | `:target` / `:focus-within`     | `css-demos/interaction/target-focus-within.css`        |
+| Form validation          | `:user-valid`/`:user-invalid`   | `css-demos/visual/form-validation.css`                 |
+| Color variations         | `color-mix()`                   | `css-demos/visual/color-mix.css`                       |
+| Color conversion         | Relative color syntax           | `css-demos/visual/relative-colors.css`                 |
+| Glassmorphism            | `backdrop-filter`               | `css-demos/visual/backdrop-filter.css`                 |
+| Adaptive text on bg      | `mix-blend-mode`                | `css-demos/visual/mix-blend-mode.css`                  |
+| Modern shapes            | `corner-shape`                  | `css-demos/visual/corner-shape.css`                    |
+| Responsive clipping      | `clip-path: shape()`            | `css-demos/visual/clip-path-shape.css`                 |
+| Gap separators           | `column-rule` / `row-rule`      | `css-demos/visual/gap-decorations.css`                 |
+| Optical text centering   | `text-box-trim`                 | `css-demos/visual/text-box-trim.css`                   |
+| Focus outlines clipped   | `overflow: clip` + clip-margin  | `css-demos/visual/overflow-clip-margin.css`            |
+| Conditional values       | `if()`                          | `css-demos/functions/css-if-function.css`              |
+| Reusable CSS logic       | `@function`                     | `css-demos/functions/custom-functions.css`             |
+| Data-driven styles       | Advanced `attr()`               | `css-demos/functions/advanced-attr.css`                |
+| Auto contrast text       | `contrast-color()`              | `css-demos/functions/contrast-color.css`               |
+| Circular layout          | `sin()` / `cos()`               | `css-demos/functions/trigonometric-functions.css`       |
+| Staggered animations     | `sibling-index()` / `sibling-count()` | `css-demos/functions/sibling-functions.css`       |
+| Cascade control          | `@layer`                        | `css-demos/specificity/cascade-layers.css`             |
+| Scoped styles            | `@scope`                        | `css-demos/specificity/scope-rule.css`                 |
+| Custom select styling    | `appearance: base-select`       | `css-demos/native-customization/customizable-select.css` |
 
 ## See Also
 

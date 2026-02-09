@@ -65,4 +65,18 @@ All examples in `css-demos/` follow this header format:
 - `SKILL.md` — Main skill definition (capabilities, rules table, quick reference)
 - `references/rules/` — Behavioral rules (7 files)
 - `references/live-mdn-fetch.md` — Live MDN data fetch workflow
-- `css-demos/INDEX.md` — Catalog of all CSS examples with metadata
+- `css-demos/INDEX.md` — Catalog of all 47 CSS examples with metadata
+
+## CSS Demo Categories
+
+- `css-demos/layout/` — Centering, spacing, subgrid, `:has()`, nesting, grid lanes, isolation/stacking, stretch
+- `css-demos/responsive/` — Media queries, `@supports`, viewport units (sv/lv/dv)
+- `css-demos/container/` — Size queries, style queries, scroll-state queries, anchored queries
+- `css-demos/animation/` — View transitions (+ nested groups), scroll-driven, scroll-triggered, `@starting-style`
+- `css-demos/theming/` — `light-dark()`
+- `css-demos/positioning/` — Anchor positioning
+- `css-demos/interaction/` — CSS carousel, popover, interest invokers, hover queries, overscroll-behavior, scroll-margin/padding, `:target`/`:focus-within`
+- `css-demos/visual/` — Form validation, `color-mix()`, relative colors, `backdrop-filter`, `mix-blend-mode`, `corner-shape`, `clip-path: shape()`, gap decorations, `text-box-trim`, `overflow: clip`
+- `css-demos/functions/` — `if()`, `@function`, `attr()`, `contrast-color()`, trig functions, `sibling-index()`/`sibling-count()`
+- `css-demos/specificity/` — `@layer`, `@scope`
+- `css-demos/native-customization/` — Customizable `<select>`

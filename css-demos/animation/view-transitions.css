@@ -187,3 +187,82 @@
     opacity: 0;
   }
 }
+
+
+/* ==========================================================================
+   NESTED VIEW TRANSITION GROUPS (Chrome 140+)
+   Reference: https://developer.chrome.com/docs/css-ui/view-transitions/nested-view-transition-groups
+
+   Problem: By default, all ::view-transition-group() pseudos are flat siblings.
+   This breaks clipping, 3D transforms, and parent opacity/filter effects.
+
+   Solution: view-transition-group property nests groups in a parent-child tree.
+   ========================================================================== */
+
+/* --- Option 1: contain — parent captures all named children --- */
+
+.card-container {
+  view-transition-name: card-container;
+  view-transition-group: contain;      /* children nest inside this group */
+}
+
+.card-container .card-title {
+  view-transition-name: card-title;
+}
+
+.card-container .card-image {
+  view-transition-name: card-image;
+}
+
+/*
+  Pseudo-tree WITHOUT nesting (flat):
+    ::view-transition-group(card-container)
+    ::view-transition-group(card-title)     ← sibling, no clipping
+    ::view-transition-group(card-image)     ← sibling, no clipping
+
+  Pseudo-tree WITH nesting:
+    ::view-transition-group(card-container)
+      ::view-transition-group-children(card-container)
+        ::view-transition-group(card-title)   ← nested, clips correctly
+        ::view-transition-group(card-image)   ← nested, clips correctly
+*/
+
+
+/* --- Option 2: nearest — child looks up for closest ancestor group --- */
+
+.gallery-item {
+  view-transition-name: gallery-item;
+  view-transition-group: nearest;      /* nests under closest ancestor group */
+}
+
+
+/* --- Clipping: apply overflow on the children pseudo --- */
+
+::view-transition-group-children(card-container) {
+  overflow: clip;                      /* children clip to parent bounds */
+  border-radius: 0.75rem;             /* preserves card shape during transition */
+}
+
+
+/* --- 3D transforms: rotate card with children following --- */
+
+::view-transition-group(card-container) {
+  animation: card-flip 0.5s ease;
+}
+
+@keyframes card-flip {
+  from {
+    rotate: y 90deg;
+    opacity: 0;
+  }
+}
+
+/* Children inherit the 3D transform from their parent group —
+   impossible with the flat structure */
+
+
+/* --- Values reference ---
+   view-transition-group: normal    → flat (default, no nesting)
+   view-transition-group: contain   → this group contains descendant groups
+   view-transition-group: nearest   → nest under closest ancestor group
+*/
