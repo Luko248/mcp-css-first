@@ -103,3 +103,93 @@
     display: block;
   }
 }
+
+
+/* ==========================================================================
+   4. SCROLLABLE MASK — responsive breadcrumb with edge fade
+   Core: mask + scroll-state(scrollable:) to reveal gradient edges
+   when content overflows inline. No JavaScript needed.
+
+   HTML:
+     <nav>
+       <ul>
+         <li><a href="#">Home</a></li>
+         <li><a href="#">About</a></li>
+         ...
+       </ul>
+     </nav>
+   ========================================================================== */
+
+@property --mask-start {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --mask-end {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+.breadcrumb-nav {
+  container-type: scroll-state inline-size;
+  overflow: auto clip;
+  position: relative;
+  display: grid;
+  align-content: center;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  /* Sticky mask overlay via ::before */
+  &::before {
+    content: "";
+    position: sticky;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    inline-size: 100cqi;
+    block-size: 100%;
+    margin-block-end: -100%;          /* collapse so it overlays content */
+    z-index: 1;
+    pointer-events: none;
+    background: var(--breadcrumb-bg, oklch(0.15 0 0));
+    mask: linear-gradient(
+      to right,
+      black 0%,
+      transparent var(--mask-start),
+      transparent var(--mask-end),
+      black 100%
+    );
+    transition: --mask-start 0.25s ease, --mask-end 0.25s ease;
+
+    @supports (container-type: scroll-state) {
+      /* Fade left edge when scrollable toward inline-start */
+      @container scroll-state(scrollable: inline-start) {
+        --mask-start: 15%;
+      }
+
+      /* Fade right edge when scrollable toward inline-end */
+      @container scroll-state(scrollable: inline-end) {
+        --mask-end: 85%;
+      }
+    }
+  }
+
+  > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    white-space: nowrap;
+    display: inline-block;
+    padding-inline: 1rem;
+  }
+}

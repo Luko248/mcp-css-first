@@ -46,6 +46,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Create masonry (waterfall) layouts with pure CSS
 - Features: `display: grid-lanes`, `grid-template-columns`, lane spanning, explicit placement, horizontal brick layout, `@supports` fallback
 
+### [isolation-stacking.css](layout/isolation-stacking.css)
+**isolation: isolate — Stacking Context Control**
+- Baseline: 🟢 Widely Available (97%)
+- MDN: [isolation](https://developer.mozilla.org/en-US/docs/Web/CSS/isolation)
+- Task: Fix z-index issues by creating explicit stacking contexts
+- Features: `isolation: isolate`, component-scoped z-index, mix-blend-mode containment, z-index scale with custom properties
+
 ---
 
 ## Responsive
@@ -63,6 +70,14 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - MDN: [@supports](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports)
 - Task: Detect CSS feature support and provide progressive enhancement
 - Features: Property support, `selector()`, `font-tech()`, `and`/`or`/`not` operators
+
+### [viewport-units.css](responsive/viewport-units.css)
+**Modern Viewport Units — Small, Large, Dynamic**
+- Baseline: 🔵 Newly Available (93%)
+- Reference: [Viewport Units (web.dev)](https://web.dev/blog/viewport-units)
+- MDN: [Viewport-relative lengths](https://developer.mozilla.org/en-US/docs/Web/CSS/length#relative_length_units_based_on_viewport)
+- Task: Size elements relative to the viewport with mobile-safe units
+- Features: `svw/svh/svi/svb`, `lvw/lvh/lvi/lvb`, `dvw/dvh/dvi/dvb`, `*vmin/*vmax`, fluid typography, scroll-snap sections
 
 ---
 
@@ -87,7 +102,7 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Baseline: 🟣 Experimental (Chrome 133+)
 - MDN: [Scroll State Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_conditional_rules/Container_scroll-state_queries)
 - Task: Style elements based on scroll state (scrollable, stuck, snapped)
-- Features: `scroll-state(stuck:)`, `scroll-state(snapped:)`, `scroll-state(scrollable:)`
+- Features: `scroll-state(stuck:)`, `scroll-state(snapped:)`, `scroll-state(scrollable:)`, breadcrumb scroll mask with `@property` + `mask` edge fade
 
 ### [anchored-queries.css](container/anchored-queries.css)
 **Anchored Container Queries**
@@ -126,7 +141,7 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Baseline: 🔵 Newly Available (87%)
 - MDN: [@starting-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style), [interpolate-size](https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size)
 - Task: Animate elements entering/exiting the DOM
-- Features: `@starting-style`, `transition-behavior: allow-discrete`, `interpolate-size: allow-keywords`, dialog/popover/details animation
+- Features: `@starting-style`, `transition-behavior: allow-discrete`, `interpolate-size: allow-keywords`, dialog/popover/details animation, dialog body scroll lock with `scrollbar-gutter: stable`
 
 ---
 
@@ -169,6 +184,27 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Create popovers, dropdowns, and tooltips with HTML + CSS only
 - Features: `popover` attribute, `:popover-open`, `::backdrop`, anchor positioning, invoker commands, dialog `closedby`
 
+### [overscroll-behavior.css](interaction/overscroll-behavior.css)
+**overscroll-behavior**
+- Baseline: 🟢 Widely Available (97%)
+- MDN: [overscroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior)
+- Task: Prevent scroll chaining, pull-to-refresh, and bounce effects
+- Features: `overscroll-behavior`, `overscroll-behavior-block`, `overscroll-behavior-inline`, contain/none values, modal scroll locking, carousel containment
+
+### [scroll-margin-padding.css](interaction/scroll-margin-padding.css)
+**scroll-margin & scroll-padding**
+- Baseline: 🟢 Widely Available (96%)
+- MDN: [scroll-margin](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin), [scroll-padding](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-padding)
+- Task: Prevent anchor-linked sections from scrolling behind fixed navigation
+- Features: `scroll-margin-block-start`, `scroll-padding-block-start`, fixed/sticky nav offset, scroll-snap offsets, logical properties, dynamic nav height
+
+### [target-focus-within.css](interaction/target-focus-within.css)
+**:target & :focus-within Pseudo-Selectors**
+- Baseline: 🟢 Widely Available (99% / 97%)
+- MDN: [:target](https://developer.mozilla.org/en-US/docs/Web/CSS/:target), [:focus-within](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within)
+- Task: Highlight anchor-linked sections, animate on navigation, style containers on child focus
+- Features: `:target` highlight/animate, CSS-only modal, tab switching, `:focus-within` form highlight, floating labels, search expand, dropdown keep-open, table row highlight
+
 ### [hover-media-queries.css](interaction/hover-media-queries.css)
 **Hover and Pointer Media Queries**
 - Baseline: 🟢 Widely Available (97%)
@@ -194,12 +230,42 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Create color variations, tints, shades, and transparency from a single base
 - Features: `color-mix()` in oklch/srgb, tints, shades, transparency, interactive states
 
+### [gap-decorations.css](visual/gap-decorations.css)
+**Gap Decorations — column-rule & row-rule**
+- Baseline: column-rule (multicol) 🟢 Widely Available; gap decorations (grid/flex) 🟣 Experimental (Chrome 139+)
+- MDN: [column-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule)
+- Reference: [Gap Decorations (Chrome Blog)](https://developer.chrome.com/blog/gap-decorations)
+- Task: Draw separator lines between grid columns, flex items, or multicol columns
+- Features: `column-rule`, `row-rule`, `repeat()` patterns, `column-rule-offset`, multicol/grid/flex support, `@supports` fallback
+
+### [clip-path-shape.css](visual/clip-path-shape.css)
+**clip-path: shape() — Responsive Clipping & Scroll Morphing**
+- Baseline: 🟣 Experimental (Chrome 135+, Safari 18.4+)
+- MDN: [clip-path](https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path)
+- Reference: [CSS shape() (Chrome Blog)](https://developer.chrome.com/blog/css-shape)
+- Task: Create responsive clip shapes with curves, animate/morph them on scroll
+- Features: `shape()` function (from, line, curve, arc, close), `@property` + scroll-driven morphing, hover blob, responsive notched card, `@supports` fallback
+
+### [mix-blend-mode.css](visual/mix-blend-mode.css)
+**mix-blend-mode — Adaptive Content & Visual Blending**
+- Baseline: 🟢 Widely Available (97%)
+- MDN: [mix-blend-mode](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode)
+- Task: Make text/content adapt color based on background, create visual effects
+- Features: `difference` for adaptive text, `multiply` image tint, `screen` glow, `exclusion`, `isolation: isolate` containment, all blend modes reference
+
 ### [corner-shape.css](visual/corner-shape.css)
 **CSS corner-shape Property**
 - Baseline: 🟣 Experimental (Chrome 139+)
 - MDN: [corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape)
 - Task: Create modern border shapes — bevels, scoops, squircles, notches, tooltip arrows
 - Features: `corner-shape` (round, squircle, bevel, scoop, notch, superellipse), tooltip arrow with scoop, animated morphing
+
+### [overflow-clip-margin.css](visual/overflow-clip-margin.css)
+**overflow: clip + overflow-clip-margin**
+- Baseline: overflow: clip 🔵 Newly Available (92%); overflow-clip-margin 🟡 Limited Availability
+- MDN: [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow), [overflow-clip-margin](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin)
+- Task: Clip overflow while keeping focus outlines, shadows, and decorations visible
+- Features: `overflow: clip`, `overflow-clip-margin`, single-axis clipping, focus ring preservation, badge/ribbon overflow, `@supports` fallback
 
 ---
 
@@ -227,6 +293,13 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Read HTML attributes as typed CSS values — colors, numbers, lengths
 - Features: `type(<color>)`, `type(<integer>)`, `type(<custom-ident>)`, dimension units, `raw-string`, `@property` + `attr()` conic progress demo, fallbacks
 
+### [trigonometric-functions.css](functions/trigonometric-functions.css)
+**CSS Trigonometric Functions — sin(), cos(), tan(), atan2()**
+- Baseline: 🔵 Newly Available (93%)
+- MDN: [sin()](https://developer.mozilla.org/en-US/docs/Web/CSS/sin), [cos()](https://developer.mozilla.org/en-US/docs/Web/CSS/cos), [tan()](https://developer.mozilla.org/en-US/docs/Web/CSS/tan), [atan2()](https://developer.mozilla.org/en-US/docs/Web/CSS/atan2)
+- Task: Position elements in circles, arcs, and radial patterns with pure CSS
+- Features: Circular menus, animated reveals, semicircle/arc layouts, clock faces, orbit animations, wave patterns, spirals, `@property` + trig, `atan2()` pointer rotation
+
 ### [contrast-color.css](functions/contrast-color.css)
 **contrast-color() Function**
 - Baseline: 🟡 Limited Availability
@@ -251,6 +324,17 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - MDN: [@scope](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope)
 - Task: Scope styles to DOM subtrees and control specificity with proximity
 - Features: Scope root/limit (donut scope), `:scope` pseudo-class, scoping proximity, low-specificity selectors, scope + nesting
+
+---
+
+## Native Customization
+
+### [customizable-select.css](native-customization/customizable-select.css)
+**Customizable Select Element**
+- Baseline: 🟣 Experimental (Chrome 135+)
+- MDN: [Customizable Select](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select)
+- Task: Style native `<select>` with full visual control — picker, options, icons, animations
+- Features: `appearance: base-select`, `::picker(select)`, `::picker-icon`, `::checkmark`, `<selectedcontent>`, `:open`, entry/exit animations, `@supports` fallback
 
 ---
 

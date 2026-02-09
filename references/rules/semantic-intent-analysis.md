@@ -118,13 +118,16 @@ Solution: Container query or media query with display toggle
 
 ### 5. Visual Intent 🎨
 
-**Keywords**: color, background, border, shadow, gradient, appearance, style, blur, opacity
+**Keywords**: color, background, border, shadow, gradient, appearance, style, blur, opacity, adapt, contrast, invert, blend, tint, overlay
 
 **User Might Say**:
 - "Change the background color"
 - "Add a shadow effect"
 - "Make it transparent"
 - "Create a gradient"
+- "Text should change color based on background"
+- "Logo should be visible on any background"
+- "Add a color overlay to the image"
 
 **Intent**: User wants to change visual appearance
 
@@ -132,6 +135,8 @@ Solution: Container query or media query with display toggle
 - `light-dark()` for theme-aware colors
 - `color-mix()` for color variations
 - `backdrop-filter` for glassmorphism
+- `mix-blend-mode: difference` for text/content that adapts to any background color
+- `isolation: isolate` to contain blend effects
 - Modern gradient functions
 - Logical border properties
 
@@ -140,6 +145,12 @@ Solution: Container query or media query with display toggle
 User: "Add a subtle shadow to the card"
 Intent: VISUAL (depth perception)
 Solution: `box-shadow` with appropriate values
+```
+
+```
+User: "Text should be readable over any background color"
+Intent: VISUAL (adaptive color)
+Solution: `mix-blend-mode: difference` with white text — automatically inverts against background
 ```
 
 ---
@@ -183,7 +194,42 @@ Solution: CSS Carousel with `::scroll-marker` as tab labels and `:target-current
 
 ---
 
-### 7. Typography Intent 📝
+### 7. Stacking Intent 📚
+
+**Keywords**: z-index, overlap, behind, in front, above, below, stacking, layer, overlay, modal on top, dropdown hidden, covered, underneath
+
+**User Might Say**:
+- "My modal is behind the header"
+- "z-index isn't working"
+- "Element is hidden behind another"
+- "Dropdown appears under the next section"
+- "How do I fix z-index"
+- "Tooltip is covered by other content"
+
+**Intent**: User has a stacking context / z-index issue
+
+**CSS Solutions**:
+- `isolation: isolate` to create explicit stacking contexts per component
+- Small z-index scale with custom properties (`--z-base`, `--z-modal`, etc.)
+- **Never escalate z-index values** (100, 9999, 99999 = z-index wars)
+- See `css-demos/layout/isolation-stacking.css` for patterns
+
+**Example**:
+```
+User: "My dropdown menu goes behind the content below it"
+Intent: STACKING (z-index / stacking context issue)
+Solution: Add `isolation: isolate` to the component containing the dropdown
+```
+
+```
+User: "z-index 9999 still doesn't work"
+Intent: STACKING (missing stacking context)
+Solution: The parent needs `isolation: isolate` — z-index only works within a stacking context
+```
+
+---
+
+### 8. Typography Intent 📝
 
 **Keywords**: font, text, size, weight, spacing, alignment, readable
 
@@ -232,11 +278,11 @@ Often users have **multiple intents** in one request:
 }
 
 .card {
-  transition: transform 0.2s;
+  transition: translate 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  translate: 0 -4px;
 }
 ```
 

@@ -191,11 +191,11 @@ const Container = styled.div`
 <style scoped>
 .card {
   background: light-dark(white, #1a1a1a);
-  transition: transform 0.2s;
+  transition: scale 0.2s;
 }
 
 .card--active {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 </style>
 ```
@@ -264,11 +264,11 @@ export class CardComponent {
     inline-size: 100%;
     padding-inline: 1rem;
     background: light-dark(white, #1a1a1a);
-    transition: transform 0.2s;
+    transition: scale 0.2s;
   }
 
   .card.active {
-    transform: scale(1.05);
+    scale: 1.05;
   }
 
   .card-title {
@@ -434,11 +434,11 @@ export class CardComponent {
 
 <style scoped>
 .card {
-  transition: transform 0.2s ease;
+  transition: translate 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  translate: 0 -4px;
 }
 </style>
 ```

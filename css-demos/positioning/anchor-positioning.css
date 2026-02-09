@@ -40,7 +40,7 @@
     /* Traditional positioning as fallback */
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    translate: -50% 0;
   }
 }
 

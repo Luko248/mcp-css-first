@@ -53,6 +53,19 @@ dialog[open]::backdrop {
 
 
 /* ==========================================================================
+   1b. DIALOG BODY SCROLL LOCK
+   Best practice: prevent background scroll when dialog is open.
+   scrollbar-gutter: stable prevents layout shift from scrollbar disappearing.
+   MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter
+   ========================================================================== */
+
+html:has(dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+
+/* ==========================================================================
    2. POPOVER ENTRY/EXIT
    Core: same pattern — @starting-style + allow-discrete for display
    ========================================================================== */

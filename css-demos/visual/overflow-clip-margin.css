@@ -1,0 +1,181 @@
+/**
+ * overflow: clip + overflow-clip-margin
+ *
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin
+ * Baseline: overflow: clip 🔵 Newly Available (92%)
+ *           overflow-clip-margin 🟡 Limited Availability
+ *
+ * Task: Clip overflow while keeping focus outlines, shadows, and decorations visible
+ * Why: overflow: hidden cuts focus rings and box-shadows — overflow: clip with
+ *      overflow-clip-margin gives visual breathing room without layout impact
+ */
+
+
+/* ==========================================================================
+   THE PROBLEM — overflow: hidden clips everything
+
+   ❌ WRONG — focus outline is cut off
+   .form-group {
+     overflow: hidden;
+   }
+   input:focus-visible {
+     outline: 2px solid blue;
+     outline-offset: 2px;            ← this gets clipped!
+   }
+
+   ✅ CORRECT — overflow: clip + clip-margin preserves outlines
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. FORM INPUTS — preserve focus outline
+   The most common case: inputs inside a container with overflow clipping.
+   ========================================================================== */
+
+.form-group {
+  overflow: clip;
+  overflow-clip-margin: 4px;           /* enough for outline + offset */
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid oklch(0.55 0.2 260);
+  outline-offset: 2px;                /* fully visible thanks to clip-margin */
+}
+
+
+/* ==========================================================================
+   2. CARD WITH BOX-SHADOW — shadow not clipped
+   ========================================================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1.5rem;
+  overflow: clip;
+  overflow-clip-margin: 8px;           /* room for hover shadow */
+}
+
+.card-grid .card {
+  transition: box-shadow 0.2s;
+}
+
+.card-grid .card:hover {
+  box-shadow: 0 4px 12px oklch(0 0 0 / 0.15);  /* not clipped */
+}
+
+
+/* ==========================================================================
+   3. OVERFLOW: CLIP VS HIDDEN — key differences
+
+   ┌──────────────────────┬───────────────────────────────────┐
+   │ overflow: hidden      │ overflow: clip                    │
+   ├──────────────────────┼───────────────────────────────────┤
+   │ Creates scroll cont.  │ Does NOT create scroll container  │
+   │ Programmatic scroll   │ No scrolling at all               │
+   │ No clip-margin        │ Supports overflow-clip-margin     │
+   │ Creates stacking ctx  │ No stacking context side effect   │
+   └──────────────────────┴───────────────────────────────────┘
+
+   overflow: clip is almost always the better choice when you
+   want to hide overflow but don't need scrolling.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   4. SINGLE-AXIS CLIPPING
+   overflow: clip works per-axis — hidden cannot.
+   ========================================================================== */
+
+/* Clip vertical overflow only, horizontal content visible */
+.horizontal-scroll-area {
+  overflow-x: visible;
+  overflow-y: clip;
+}
+
+/* Clip horizontal overflow only — e.g. text truncation container */
+.text-container {
+  overflow-x: clip;
+  overflow-y: visible;
+  overflow-clip-margin: 2px;           /* keep descenders/outlines */
+}
+
+
+/* ==========================================================================
+   5. DECORATIVE ELEMENTS — badges, ribbons, tooltips
+   Allow decorations to peek outside the container.
+   ========================================================================== */
+
+.product-card {
+  position: relative;
+  overflow: clip;
+  overflow-clip-margin: border-box 1rem; /* 1rem outside border-box */
+}
+
+.product-card__badge {
+  position: absolute;
+  inset-block-start: -0.5rem;
+  inset-inline-end: -0.5rem;          /* visible thanks to clip-margin */
+}
+
+
+/* ==========================================================================
+   6. RECOMMENDED CLIP-MARGIN VALUES
+
+   Use case                        Value
+   ─────────────────────────       ──────
+   Focus outline (2px + 2px)       4px
+   Box-shadow (small)              8px
+   Box-shadow (large)              16px
+   Badge / ribbon overlap          1rem
+   Decorative overflow             2rem
+   ========================================================================== */
+
+
+/* ==========================================================================
+   7. FULL PATTERN — form with preserved focus rings
+   ========================================================================== */
+
+.form {
+  overflow: clip;
+  overflow-clip-margin: 4px;
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.form input,
+.form select,
+.form textarea {
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  border: 1px solid oklch(0.8 0 0);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s;
+}
+
+.form :is(input, select, textarea):focus-visible {
+  outline: 2px solid oklch(0.55 0.2 260);
+  outline-offset: 2px;
+  border-color: oklch(0.55 0.2 260);
+}
+
+
+/* ==========================================================================
+   8. @supports FALLBACK
+   ========================================================================== */
+
+@supports not (overflow-clip-margin: 4px) {
+  .form-group,
+  .card-grid,
+  .form {
+    overflow: visible;                 /* fall back to no clipping at all */
+  }
+}

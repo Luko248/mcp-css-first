@@ -65,17 +65,34 @@ When suggesting CSS solutions, prefer in this order:
 **Status**: 🔵 Newly Available
 
 ```css
+/* ❌ WRONG — 100vh overflows on mobile (ignores browser chrome) */
 .hero {
-  min-block-size: 100dvb; /* Accounts for mobile browser UI */
+  min-height: 100vh;
 }
 
+/* ✅ CORRECT — dynamic viewport block, adapts to browser UI */
+.hero {
+  min-block-size: 100dvb;
+}
+
+/* Small = with all UI visible, Large = with UI retracted */
 .sidebar {
-  min-block-size: 100svb; /* Small viewport */
-  max-block-size: 100lvb; /* Large viewport */
+  min-block-size: 100svb; /* safe minimum */
+  max-block-size: 100lvb; /* maximum expanded */
 }
 ```
 
-**Use instead of**: `100vh` (which doesn't account for mobile browser chrome)
+**All unit variants** (each prefix has 6):
+
+| Prefix | Width | Height | Inline | Block | Min | Max |
+|--------|-------|--------|--------|-------|-----|-----|
+| sv | svw | svh | svi | svb | svmin | svmax |
+| lv | lvw | lvh | lvi | lvb | lvmin | lvmax |
+| dv | dvw | dvh | dvi | dvb | dvmin | dvmax |
+
+**Rule**: Always use `dv*` for full-height layouts, `sv*` for safe minimums, `lv*` for maximums. Prefer logical variants (`dvi`, `dvb`) over physical (`dvw`, `dvh`). **Never use `100vh`** for full-screen sections.
+
+**Use instead of**: `100vh`, `100vw`, `100vmin`, `100vmax`
 
 ---
 
@@ -162,8 +179,8 @@ When suggesting CSS solutions, prefer in this order:
 
 ```css
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 .element {
@@ -182,17 +199,17 @@ When suggesting CSS solutions, prefer in this order:
 
 ```css
 .dialog {
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s, translate 0.3s;
 
   @starting-style {
     opacity: 0;
-    transform: translateY(-20px);
+    translate: 0 -20px;
   }
 }
 
 .dialog[open] {
   opacity: 1;
-  transform: translateY(0);
+  translate: 0 0;
 }
 ```
 
@@ -200,7 +217,53 @@ When suggesting CSS solutions, prefer in this order:
 
 ---
 
-### Positioning & Layout (2024)
+#### ✅ Individual Transform Properties (2022)
+**Status**: 🟢 Widely Available
+
+```css
+/* ❌ WRONG — legacy transform shorthand */
+.card {
+  transform: translateY(-4px) rotate(2deg) scale(1.05);
+}
+
+/* ✅ CORRECT — individual properties */
+.card {
+  translate: 0 -4px;
+  rotate: 2deg;
+  scale: 1.05;
+}
+```
+
+**Rule**: Always use `translate`, `rotate`, and `scale` as standalone properties. Only use `transform` for operations that have no individual property equivalent (e.g., `skew()`, `matrix()`, `perspective()`).
+
+**Benefits**: Independent animation/transition of each axis, cleaner keyframes, no order-dependence issues.
+
+**Use instead of**: `transform: translateX()`, `transform: translateY()`, `transform: translate()`, `transform: rotate()`, `transform: scale()`
+
+---
+
+### Positioning & Layout (2020-2024)
+
+#### ✅ isolation: isolate (2020)
+**Status**: 🟢 Widely Available
+
+```css
+/* ❌ WRONG — z-index wars */
+.header   { z-index: 100; }
+.modal    { z-index: 9999; }
+.tooltip  { z-index: 99999; }
+
+/* ✅ CORRECT — isolation creates scoped stacking contexts */
+.header  { isolation: isolate; z-index: 1; }
+.modal   { isolation: isolate; z-index: 2; }
+.tooltip { isolation: isolate; z-index: 3; }
+```
+
+**Rule**: When a user has z-index issues, **always suggest `isolation: isolate`** on the parent component. It creates a stacking context with zero side effects — unlike `position: relative; z-index: 0`, `transform: translateZ(0)`, or `opacity: 0.99` hacks.
+
+**Use instead of**: Escalating z-index values, transform/opacity hacks to force stacking contexts
+
+---
 
 #### ✅ Anchor Positioning (2024)
 **Status**: 🟡 Limited Availability
@@ -341,23 +404,33 @@ button:focus:not(:focus-visible) {
 **Status**: 🟢 Widely Available
 
 ```css
+/* Trigonometry — circular menu positioning */
+.menu-item {
+  --angle: calc(360deg / var(--items) * var(--i));
+  translate:
+    calc(cos(var(--angle)) * var(--radius))
+    calc(sin(var(--angle)) * -1 * var(--radius));
+}
+
+/* atan2() — point element toward a target */
+.pointer {
+  rotate: atan2(var(--dy), var(--dx));
+}
+
+/* Rounding */
 .element {
-  /* Trigonometry */
-  rotate: calc(sin(45deg) * 90deg);
-
-  /* Rounding */
   padding: round(up, 1.3rem, 0.5rem);
+}
 
-  /* Advanced calculations */
-  inline-size: clamp(
-    300px,
-    calc(50vi - 2rem),
-    800px
-  );
+/* clamp() */
+.container {
+  inline-size: clamp(300px, calc(50vi - 2rem), 800px);
 }
 ```
 
-**Use instead of**: JavaScript for complex calculations
+**Functions**: `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()`, `atan2()`, `round()`, `mod()`, `rem()`, `abs()`, `sign()`, `clamp()`, `min()`, `max()`
+
+**Use instead of**: JavaScript for circular positioning, angle calculations, and complex math
 
 ---
 
@@ -380,6 +453,26 @@ button:focus:not(:focus-visible) {
 ```
 
 **Use instead of**: JavaScript carousels, tab components, scroll spy
+
+---
+
+#### ✅ scroll-margin & scroll-padding (2021)
+**Status**: 🟢 Widely Available
+
+```css
+/* ❌ WRONG — section scrolls behind fixed nav */
+.main-nav { position: fixed; block-size: 4rem; }
+
+/* ✅ CORRECT — offset scroll target by nav height */
+:root { --nav-block-size: 4rem; }
+html { scroll-padding-block-start: var(--nav-block-size); }
+/* or per-element: */
+section[id] { scroll-margin-block-start: var(--nav-block-size); }
+```
+
+**Rule**: When a fixed/sticky nav obscures anchor-linked sections, always set `scroll-padding-block-start` on the scroll container (or `scroll-margin-block-start` on targets). Use logical properties.
+
+**Use instead of**: JavaScript `scrollIntoView` offset hacks, negative margin + padding tricks
 
 ---
 
@@ -406,6 +499,28 @@ HTML: `<button commandfor="dialog" command="show-modal">Open</button>`
 
 ---
 
+#### ✅ Dialog Best Practices
+**Rule**: Always lock body scroll when a `<dialog>` is open, and use `scrollbar-gutter: stable` to prevent layout shift from the scrollbar disappearing.
+
+```css
+/* ❌ WRONG — background scrolls behind open dialog */
+dialog[open] {
+  /* ... styles only ... */
+}
+
+/* ✅ CORRECT — lock scroll + preserve scrollbar space */
+html:has(dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+```
+
+MDN: [scrollbar-gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter)
+
+**Why `scrollbar-gutter: stable`**: When `overflow: hidden` removes the scrollbar, page content shifts. `scrollbar-gutter: stable` reserves the scrollbar space even when scrollbar is not visible, preventing layout jank.
+
+---
+
 ### Visual (2025)
 
 #### ✅ corner-shape (2025)
@@ -419,6 +534,75 @@ HTML: `<button commandfor="dialog" command="show-modal">Open</button>`
 ```
 
 **Use instead of**: SVG/clip-path workarounds for non-round corners
+
+---
+
+#### ✅ Gap Decorations — column-rule & row-rule (2025)
+**Status**: 🟣 Experimental (Chrome 139+); `column-rule` in multicol is 🟢 Widely Available
+
+```css
+/* Grid with vertical + horizontal separators */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  column-rule: 1px solid oklch(0.85 0 0);
+  row-rule: 1px solid oklch(0.85 0 0);
+}
+
+/* Flex nav with dividers */
+.nav {
+  display: flex;
+  gap: 1rem;
+  column-rule: 1px solid oklch(0.8 0 0);
+}
+```
+
+**Use instead of**: Border hacks, pseudo-elements, or `<hr>` elements for visual separators between grid/flex items
+
+---
+
+#### ✅ clip-path: shape() (2025)
+**Status**: 🟣 Experimental (Chrome 135+, Safari 18.4+)
+
+```css
+/* Responsive curved clip — uses CSS units, not SVG px */
+.wave {
+  clip-path: shape(
+    from 0% 0%,
+    line to 100% 0%,
+    line to 100% 80%,
+    curve to 0% 80% with 50% 100%,
+    close
+  );
+}
+```
+
+**Commands**: `from`, `line to`, `curve to` (quadratic/cubic), `arc to`, `hline to`, `vline to`, `close`
+
+**Use instead of**: SVG `path()` in clip-path (fixed px, not responsive), complex polygon approximations of curves
+
+---
+
+#### ✅ overflow: clip + overflow-clip-margin (2022-2024)
+**Status**: overflow: clip 🔵 Newly Available; overflow-clip-margin 🟡 Limited Availability
+
+```css
+/* ❌ WRONG — overflow: hidden clips focus outlines and shadows */
+.form-group {
+  overflow: hidden;
+}
+
+/* ✅ CORRECT — overflow: clip with margin preserves visual effects */
+.form-group {
+  overflow: clip;
+  overflow-clip-margin: 4px;           /* room for outline + offset */
+}
+```
+
+**Rule**: When a user has clipped focus rings, box-shadows, or badges — always suggest `overflow: clip` + `overflow-clip-margin` instead of `overflow: hidden`. It clips without creating a scroll container and allows visual breathing room.
+
+**Use instead of**: `overflow: hidden` when focus outlines, shadows, or decorative elements get cut off
 
 ---
 
@@ -507,6 +691,9 @@ Replace these old patterns with modern alternatives:
 | `prefers-color-scheme` duplicated | `light-dark()` | 🔵 |
 | JavaScript scroll listeners | `animation-timeline: view()` | 🔵 |
 | JavaScript tooltip positioning | Anchor Positioning | 🟡 |
+| `z-index: 9999` wars | `isolation: isolate` + small z-index scale | 🟢 |
+| `overflow: hidden` (clips outlines) | `overflow: clip` + `overflow-clip-margin` | 🔵 |
+| JS scroll offset for fixed nav | `scroll-padding-block-start` / `scroll-margin-block-start` | 🟢 |
 | Sass/Less nesting | Native CSS nesting | 🔵 |
 | `:focus` outlines | `:focus-visible` | 🟢 |
 | Manual color variations | `color-mix()` | 🔵 |
