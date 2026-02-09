@@ -43,23 +43,74 @@ data["<feature-id>"].status.support
 
 ### Common Feature IDs for This Skill
 
+#### Layout & Sizing
 | CSS Feature | web-features ID | compat_features key |
 |---|---|---|
 | Container Queries | `container-queries` | `css.at-rules.container` |
 | Container Style Queries | `container-queries-style` | — |
-| Anchor Positioning | `anchor-positioning` | `css.properties.anchor-name` |
-| View Transitions | `view-transitions` | `css.properties.view-transition-name` |
-| Scroll-driven Animations | `scroll-driven-animations` | `css.properties.animation-timeline` |
 | `:has()` | `has` | `css.selectors.has` |
 | CSS Nesting | `nesting` | `css.selectors.nesting` |
 | Subgrid | `subgrid` | `css.properties.grid-template-columns.subgrid` |
+| `isolation` | `isolation` | `css.properties.isolation` |
+| `stretch` keyword | `stretch-sizing` | `css.properties.width.stretch` |
+| Dynamic viewport units | `viewport-units` | `css.types.length.svh` |
+
+#### Animation & Transitions
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
+| View Transitions | `view-transitions` | `css.properties.view-transition-name` |
+| Nested view transition groups | `view-transition-group` | `css.properties.view-transition-group` |
+| Scroll-driven Animations | `scroll-driven-animations` | `css.properties.animation-timeline` |
+| `@starting-style` | `starting-style` | `css.at-rules.starting-style` |
+| `interpolate-size` | `interpolate-size` | `css.properties.interpolate-size` |
+
+#### Interaction
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
+| Popover API | `popover` | `api.HTMLElement.popover` |
+| Invoker commands | `invokers` | `html.elements.button.command` |
+| Interest invokers | `interest-invokers` | `html.elements.button.interestfor` |
+| `overscroll-behavior` | `overscroll-behavior` | `css.properties.overscroll-behavior` |
+| `scroll-margin` | `scroll-margin` | `css.properties.scroll-margin` |
+| `scroll-padding` | `scroll-padding` | `css.properties.scroll-padding` |
+| Anchor Positioning | `anchor-positioning` | `css.properties.anchor-name` |
+| Scroll state queries | `scroll-state-queries` | `css.at-rules.container.scroll-state` |
+| Customizable select | `customizable-select` | `css.properties.appearance.base-select` |
+
+#### Visual & Color
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
 | `light-dark()` | `light-dark` | `css.types.color.light-dark` |
 | `color-mix()` | `color-mix` | `css.types.color.color-mix` |
-| `@starting-style` | `starting-style` | `css.at-rules.starting-style` |
-| Popover API | `popover` | `api.HTMLElement.popover` |
+| Relative color syntax | `relative-color` | `css.types.color.rgb.relative` |
+| `backdrop-filter` | `backdrop-filter` | `css.properties.backdrop-filter` |
+| `mix-blend-mode` | `mix-blend-mode` | `css.properties.mix-blend-mode` |
+| `corner-shape` | `corner-shape` | `css.properties.corner-shape` |
+| `clip-path: shape()` | `clip-path-shape` | `css.types.basic-shape.shape` |
+| Gap decorations | `gap-decorations` | `css.properties.row-rule` |
+| `text-box-trim` | `text-box-trim` | `css.properties.text-box-trim` |
+| `overflow: clip` | `overflow-clip` | `css.properties.overflow.clip` |
+| `overflow-clip-margin` | `overflow-clip-margin` | `css.properties.overflow-clip-margin` |
 | `:user-valid` | `user-valid-pseudo` | `css.selectors.user-valid` |
 
-If you can't find the feature ID, search the JSON for the CSS property name within `compat_features` arrays.
+#### Functions
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
+| `if()` | `css-if` | `css.types.if` |
+| `@function` | `css-function` | `css.at-rules.function` |
+| Advanced `attr()` | `attr-type` | `css.types.attr.type-or-unit` |
+| `contrast-color()` | `contrast-color` | `css.types.color.contrast-color` |
+| Trig functions | `trig-functions` | `css.types.sin` |
+| `sibling-index()` | `sibling-index` | `css.types.sibling-index` |
+| `sibling-count()` | `sibling-count` | `css.types.sibling-count` |
+
+#### Specificity & Cascade
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
+| `@layer` | `cascade-layers` | `css.at-rules.layer` |
+| `@scope` | `scope` | `css.at-rules.scope` |
+
+> **Note**: Some experimental features may not yet have a web-features ID. If you can't find the feature ID, search the JSON for the CSS property name within `compat_features` arrays.
 
 ---
 
