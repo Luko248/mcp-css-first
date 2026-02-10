@@ -47,6 +47,7 @@ All behavior rules are documented in `references/rules/`:
 | Framework Awareness      | [`references/rules/framework-awareness.md`](references/rules/framework-awareness.md)                     | Auto-detect and adapt to project frameworks    |
 | Browser Support          | [`references/rules/browser-support-consideration.md`](references/rules/browser-support-consideration.md) | Always provide baseline status indicators      |
 | Progressive Enhancement  | [`references/rules/progressive-enhancement.md`](references/rules/progressive-enhancement.md)             | Core functionality first, enhancements on top  |
+| Browser Verification     | [`references/rules/browser-verification.md`](references/rules/browser-verification.md)                   | Use MCP servers / browser hooks to verify CSS  |
 
 ## CSS Demos
 

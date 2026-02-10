@@ -17,6 +17,7 @@ This is a knowledge base repository with no build process or test runner. All co
 - Demo files: `css-demos/<category>/<kebab-case>.css`
 - Markdown sections: Title Case headings
 - Demos should be self-documenting with brief, high-signal comments and MDN links
+- When a browser MCP server (Playwright, Chrome DevTools, Browser MCP) or browser hook is available, use it to verify CSS renders correctly — see `references/rules/browser-verification.md`
 
 ## CSS Demo File Structure
 
