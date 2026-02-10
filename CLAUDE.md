@@ -80,4 +80,5 @@ All examples in `css-demos/` follow this header format:
 - `css-demos/visual/` — Form validation, `color-mix()`, relative colors, `backdrop-filter`, `mix-blend-mode`, `corner-shape`, `clip-path: shape()`, gap decorations, `text-box-trim`, `overflow: clip`
 - `css-demos/functions/` — `if()`, `@function`, `attr()`, `contrast-color()`, trig functions, `sibling-index()`/`sibling-count()`
 - `css-demos/specificity/` — `@layer`, `@scope`
+- `css-demos/accessibility/` — `prefers-reduced-motion`, `prefers-contrast`, `prefers-reduced-transparency`, `forced-colors`
 - `css-demos/native-customization/` — Customizable `<select>`

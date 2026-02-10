@@ -114,6 +114,9 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 | Cascade control          | `@layer`                        | `css-demos/specificity/cascade-layers.css`             |
 | Scoped styles            | `@scope`                        | `css-demos/specificity/scope-rule.css`                 |
 | Custom select styling    | `appearance: base-select`       | `css-demos/native-customization/customizable-select.css` |
+| Reduced motion           | `prefers-reduced-motion`        | `css-demos/accessibility/prefers-reduced-motion.css`     |
+| High contrast            | `prefers-contrast`              | `css-demos/accessibility/prefers-reduced-motion.css`     |
+| Forced colors (Win HC)   | `forced-colors`                 | `css-demos/accessibility/prefers-reduced-motion.css`     |
 
 ## See Also
 

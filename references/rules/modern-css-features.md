@@ -750,6 +750,56 @@ MDN: [scrollbar-gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollb
 
 ---
 
+### Accessibility (2020+)
+
+#### ✅ prefers-reduced-motion (MANDATORY)
+**Status**: 🟢 Widely Available
+
+**Rule**: Every animation, transition, and scroll effect MUST have a `prefers-reduced-motion: reduce` override. This is not optional — it is a WCAG 2.1 AA requirement.
+
+```css
+/* ❌ WRONG — animation with no motion preference check */
+.card {
+  animation: slide-in 0.5s ease;
+}
+
+/* ✅ CORRECT — motion-safe approach (opt-in) */
+.card {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    animation: slide-in 0.5s ease;
+  }
+}
+
+/* ✅ ALSO CORRECT — opt-out approach */
+.card {
+  animation: slide-in 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
+
+/* Smooth scroll — ALWAYS gate behind motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+```
+
+**Apply to**: All `animation`, `transition`, `scroll-behavior: smooth`, view transitions, scroll-driven animations, `@starting-style` entry effects, 3D rotations, parallax
+
+**Related queries**:
+- `prefers-contrast: more | less` — high/low contrast needs (🟢)
+- `prefers-reduced-transparency: reduce` — solid backgrounds over glass effects (🔵)
+- `forced-colors: active` — Windows High Contrast mode, use system colors (🟢)
+
+---
+
 ## Feature Detection
 
 When using experimental features, provide fallbacks:
@@ -812,6 +862,8 @@ Replace these old patterns with modern alternatives:
 | JS mouseenter/leave for tooltips | `interestfor` + `interest-delay` | 🟣 |
 | `line-height: 1` text centering | `text-box: trim-both cap alphabetic` | 🟡 |
 | `width: 100%` + margin overflow | `inline-size: stretch` | 🟡 |
+| Animations without motion check | `prefers-reduced-motion: reduce` override | 🟢 |
+| `overflow: hidden` for glassmorphism | `prefers-reduced-transparency: reduce` solid fallback | 🔵 |
 
 ---
 
@@ -826,6 +878,9 @@ Before suggesting CSS, ask:
 - [ ] Am I using scroll-driven animations instead of JavaScript?
 - [ ] Am I using `:has()` for parent/sibling selectors?
 - [ ] Have I checked the baseline status?
+- [ ] Does every animation/transition have a `prefers-reduced-motion` override?
+- [ ] Do glass/transparency effects have a `prefers-reduced-transparency` fallback?
+- [ ] Does the design work in `forced-colors` mode?
 
 ---
 

@@ -110,6 +110,14 @@ data["<feature-id>"].status.support
 | `@layer` | `cascade-layers` | `css.at-rules.layer` |
 | `@scope` | `scope` | `css.at-rules.scope` |
 
+#### Accessibility
+| CSS Feature | web-features ID | compat_features key |
+|---|---|---|
+| `prefers-reduced-motion` | `prefers-reduced-motion` | `css.at-rules.media.prefers-reduced-motion` |
+| `prefers-contrast` | `prefers-contrast` | `css.at-rules.media.prefers-contrast` |
+| `prefers-reduced-transparency` | `prefers-reduced-transparency` | `css.at-rules.media.prefers-reduced-transparency` |
+| `forced-colors` | `forced-colors` | `css.at-rules.media.forced-colors` |
+
 > **Note**: Some experimental features may not yet have a web-features ID. If you can't find the feature ID, search the JSON for the CSS property name within `compat_features` arrays.
 
 ---

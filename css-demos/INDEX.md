@@ -384,6 +384,17 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 
 ---
 
+## Accessibility
+
+### [prefers-reduced-motion.css](accessibility/prefers-reduced-motion.css)
+**Accessibility Media Queries — Reduced Motion, Contrast, Transparency**
+- Baseline: 🟢 Widely Available (97%+)
+- MDN: [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion), [prefers-contrast](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast), [prefers-reduced-transparency](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-transparency), [forced-colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)
+- Task: Respect user accessibility preferences — disable decorative motion, adapt contrast, handle transparency and forced colors
+- Features: Global animation reset, targeted per-component control, motion-safe opt-in pattern, scroll-behavior gating, view transition disable, essential vs decorative motion guide, `prefers-contrast`, `prefers-reduced-transparency`, `forced-colors`, all accessibility queries reference
+
+---
+
 ## Native Customization
 
 ### [customizable-select.css](native-customization/customizable-select.css)
