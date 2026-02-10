@@ -690,6 +690,45 @@ MDN: [scrollbar-gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollb
 
 ---
 
+### 3D Transforms (2022)
+
+#### ✅ perspective + preserve-3d
+**Status**: 🟢 Widely Available
+
+```css
+/* 3D scene setup */
+.scene { perspective: 800px; }
+
+.cube {
+  transform-style: preserve-3d;
+}
+
+.cube__face {
+  backface-visibility: hidden;
+  rotate: y 90deg;
+  translate: 0 0 var(--half);
+}
+
+/* 3D carousel — items in a circle */
+.carousel {
+  --items: 6;
+  --radius: calc(var(--item-size) / 2 / tan(180deg / var(--items)));
+}
+
+.carousel__item {
+  rotate: y calc(360deg / var(--items) * var(--i));
+  translate: 0 0 var(--radius);
+}
+```
+
+**3D property chain**: `perspective` (parent) → `transform-style: preserve-3d` (container) → `backface-visibility: hidden` (faces) → `rotate` / `translate` (positioning).
+
+**Flattening gotchas**: `overflow: hidden`, `opacity < 1`, `filter`, `contain: paint`, `clip-path`, `mask` on a `preserve-3d` element will BREAK 3D. Use `overflow: clip` instead.
+
+**Use instead of**: WebGL / JavaScript animation libraries for 3D UI effects (cubes, carousels, card flips, tilt effects)
+
+---
+
 ### Responsive (2024-2025)
 
 #### ✅ Scroll State Queries (2025)

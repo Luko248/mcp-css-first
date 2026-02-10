@@ -86,6 +86,8 @@ Production-ready CSS examples organized by category. See [`css-demos/INDEX.md`](
 | Tooltips                 | Anchor Positioning              | `css-demos/positioning/anchor-positioning.css`         |
 | Carousel / Slider        | CSS Carousel                    | `css-demos/interaction/css-carousel.css`               |
 | Tabs / Scroll spy        | CSS Carousel                    | `css-demos/interaction/css-carousel.css`               |
+| Flip card / 3D tile      | `backface-visibility`           | `css-demos/interaction/flip-card.css`                  |
+| 3D scenes / Cubes        | `perspective` + `preserve-3d`   | `css-demos/interaction/perspective-3d.css`              |
 | Popovers / Dropdowns     | Popover API                     | `css-demos/interaction/popover.css`                    |
 | Hover tooltips (no JS)   | Interest Invokers               | `css-demos/interaction/interest-invokers.css`          |
 | Touch vs pointer         | Hover media queries             | `css-demos/interaction/hover-media-queries.css`        |

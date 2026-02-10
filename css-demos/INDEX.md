@@ -191,6 +191,20 @@ All CSS demos are organized by category with direct MDN links, baseline status, 
 - Task: Show popovers on hover/focus without JavaScript
 - Features: `interestfor` attribute, `popover="hint"`, `interest-delay`, `:interest-target`, link previews, mega-menu, anchor positioning
 
+### [flip-card.css](interaction/flip-card.css)
+**Flip Card / 3D Tile — backface-visibility**
+- Baseline: 🟢 Widely Available (97%)
+- MDN: [backface-visibility](https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility), [transform-style](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style), [perspective](https://developer.mozilla.org/en-US/docs/Web/CSS/perspective)
+- Task: Create flip cards, 3D tiles, and reveal-on-hover UI patterns
+- Features: `backface-visibility: hidden`, `transform-style: preserve-3d`, `perspective`, horizontal/vertical flip, product tiles, team cards, keyboard accessible, `prefers-reduced-motion`
+
+### [perspective-3d.css](interaction/perspective-3d.css)
+**CSS 3D Transforms & Perspective**
+- Baseline: 🟢 Widely Available (97%)
+- MDN: [perspective](https://developer.mozilla.org/en-US/docs/Web/CSS/perspective), [transform-style](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style)
+- Task: Build 3D scenes — cubes, carousels, rotating forms, tilt effects
+- Features: CSS cube construction, face navigation via `:target`, form-on-cube, 3D carousel, tilt-on-hover, isometric scene with floor, text ring, scroll-driven 3D rotation, perspective guide, 3D flattening gotchas
+
 ### [popover.css](interaction/popover.css)
 **Popover API with CSS**
 - Baseline: 🔵 Newly Available (91%)
